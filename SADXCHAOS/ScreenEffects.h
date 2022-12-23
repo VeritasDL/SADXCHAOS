@@ -27,3 +27,5 @@ void HAHA69();
 void LigmaBoss(); 
 void ExplodeMa();
 void SpinMa();
+void SaveColAng();
+void RestoreColAng();

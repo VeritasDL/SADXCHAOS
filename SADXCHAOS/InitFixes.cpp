@@ -109,6 +109,7 @@ void Init_Fixes(const char* path, const HelperFunctions& helperFunctions)
 	WriteCall((void*)0x5B63E2, LoadFETexObj);//fix for PopUp Target Texture
 	WriteCall((void*)0x5F1A52, LoadSDTexObj);//fix for AirCraft Texture
 	WriteCall((void*)0x5F1A78, LoadSDTexObj);//fix for AirCraft Texture
+	WriteCall((void*)0x415A3D, SaveColAng);//save og col angle on level load for restore after spinma
 	//WriteCall((void*)0x6F4BD5, OverRideEmeraldShardObj);//attempt to fix EmeraldShard Texture
 	//WriteCall((void*)0x6F4D81, OverRideEmeraldShardObj);//attempt to fix EmeraldShard Texture
 	//WriteCall((void*)0x6F4EE0, OverRideEmeraldShardObj);//attempt to fix EmeraldShard Texture

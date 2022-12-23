@@ -173,6 +173,10 @@ extern "C"
 			FreeTask(g_RotaryEmerald_p);
 			g_RotaryEmerald_p = 0;
 		}
+		if (GameState != 15 && GameState != 16)
+		{
+			SaveColAng();
+		}
 		if (!playerpwp[0] || GameState != 15 || CurrentLevel == LevelIDs_SkyChase1 || CurrentLevel == LevelIDs_SkyChase2 || CurrentLevel >= LevelIDs_SSGarden)
 			return;
 		ChaosTimer();

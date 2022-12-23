@@ -1,6 +1,7 @@
 #include "pch.h"
 #include <string>
 task* p_ScanLineTask;
+Angle originalAng[1024];
 int base_pos;
 std::string Ligmas[] =
 {
@@ -318,23 +319,34 @@ void ExplodeMa()
 void SpinMa()
 {
     if (!CurrentLandTable)
+    { 
         return;
-
-    if ((CurrentLandTable->Attrs & (LandTableFlags_TextureName | LandTableFlags_TextureList)) != 0)
+    }
+    for (int j = 0; j < (__int16)DynamicCOLCount_A; ++j)
     {
-        for (int j = 0; j < (__int16)DynamicCOLCount_A; ++j)
-        {
-            COL* v1 = ColList[j];
-            auto v2 = v1->Model;
-            int e = rand() % 2;
-            v2->ang[e] -= 400;
-            //v2->ang[2] -= 400;
-            //ang[0-2]
-            //0 = X
-            //1 = Y
-            //2 = Z
-            //400 = speed
-
-        }
+        COL* v1 = ColList[j];
+        auto v2 = v1->Model;
+        int e = rand() % 2;
+        originalAng[e] = v2->ang[e];  // Store the original value of v2->ang[e] in originalAng[e]
+        v2->ang[e] -= 400;
+    }
+}
+void SaveColAng()
+{
+    for (int j = 0; j < (__int16)DynamicCOLCount_A; ++j)
+    {
+        COL* v1 = ColList[j];
+        auto v2 = v1->Model;
+        originalAng[j] = v2->ang[j];
+    }
+    AnimalPickupLoad();
+}
+void RestoreColAng()
+{
+    for(int j = 0; j < (__int16)DynamicCOLCount_A; ++j)
+    {
+        COL* v1 = ColList[j];
+        auto v2 = v1->Model;
+        v2->ang[j] = originalAng[j];
     }
 }

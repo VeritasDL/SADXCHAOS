@@ -549,6 +549,7 @@ void SpinMaTimerCheck()
 	if (SpinMa_Timer == 1)
 	{
 		SpinMa_Timer = 0;
+		RestoreColAng();
 	}
 }
 void CheckAllEffectsTimer()

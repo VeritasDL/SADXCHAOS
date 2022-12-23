@@ -28,6 +28,7 @@ typedef bool _BOOL1;
 #define CamFunc(NAME, ADDRESS) FunctionPointer(void,NAME,(_OBJ_CAMERAPARAM* pParam),ADDRESS)
 
 // General
+FunctionPointer(task*, AnimalPickupLoad, (), 0x46B650);
 FunctionPointer(int, InitGame, (), 0x413C00);
 FunctionPointer(bool, ChkPause, (), 0x414D70); // Check if the game is paused
 VoidFunc(Clear, 0x0040BF30);
