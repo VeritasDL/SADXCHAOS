@@ -1,7 +1,10 @@
 #include "pch.h"
 #include <string>
 task* p_ScanLineTask;
-Angle originalAng[1024];
+bool saveColOnce = false;
+Angle originalAng0[1024] = { 0 };
+Angle originalAng1[1024] = { 0 };
+Angle originalAng2[1024] = { 0 };
 int base_pos;
 std::string Ligmas[] =
 {
@@ -318,37 +321,43 @@ void ExplodeMa()
 
 void SpinMa()
 {
-    if (!CurrentLandTable)
-    { 
+    if (SpinMa_Timer)
+    {
         NewEffect();
         return;
     }
-    //for (int j = 0; j < (__int16)DynamicCOLCount_A; ++j)
-    //{
-    //    COL* v1 = ColList[j];
-    //    auto v2 = v1->Model;
-    //    int e = rand() % 2;
-    //    originalAng[e] = v2->ang[e];  // Store the original value of v2->ang[e] in originalAng[e]
-    //    v2->ang[e] -= 400;
-    //}
-    SpinMa_Timer = 300;
+    strcpy_s(LastEffect, 128, "Woah Trippy");
+    SaveColAng();
 }
 void SaveColAng()
 {
+    if (!DynamicCOLCount_A || saveColOnce || GameState != 15)
+        return;
     for (int j = 0; j < (__int16)DynamicCOLCount_A; ++j)
     {
         COL* v1 = ColList[j];
         auto v2 = v1->Model;
-        originalAng[j] = v2->ang[j];
+        originalAng0[j] = v2->ang[0];
+        originalAng1[j] = v2->ang[1];
+        originalAng2[j] = v2->ang[2];
     }
-    AnimalPickupLoad();
+    saveColOnce = true;
+    SpinMa_Timer = 300;
 }
 void RestoreColAng()
 {
-    for(int j = 0; j < (__int16)DynamicCOLCount_A; ++j)
+    if (!DynamicCOLCount_A || !saveColOnce)
+        return;
+
+    for (int j = 0; j < (__int16)DynamicCOLCount_A; ++j)
     {
         COL* v1 = ColList[j];
         auto v2 = v1->Model;
-        v2->ang[j] = originalAng[j];
+
+        v2->ang[0] = originalAng0[j];
+        v2->ang[1] = originalAng1[j];
+        v2->ang[2] = originalAng2[j];
+
     }
+    saveColOnce = false;
 }
