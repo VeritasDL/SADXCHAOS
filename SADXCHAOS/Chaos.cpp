@@ -173,10 +173,10 @@ extern "C"
 			FreeTask(g_RotaryEmerald_p);
 			g_RotaryEmerald_p = 0;
 		}
-		if (GameState != 15 && GameState != 16)
-		{
-			SaveColAng();
-		}
+		//if (GameState != 15 && GameState != 16)
+		//{
+		//	SaveColAng();
+		//}
 		if (!playerpwp[0] || GameState != 15 || CurrentLevel == LevelIDs_SkyChase1 || CurrentLevel == LevelIDs_SkyChase2 || CurrentLevel >= LevelIDs_SSGarden)
 			return;
 		ChaosTimer();
@@ -188,7 +188,8 @@ extern "C"
 		//Executed when the game processes input
 		if (Controllers[0].PressedButtons & Buttons_Y) //Debug Testing
 		{
-			SpinMa_Timer = 300;
+			//SpinMa_Timer = 300;
+			SpinMa();
 		}
 	}
 	__declspec(dllexport) ModInfo SADXModInfo = { ModLoaderVer }; // This is needed for the Mod Loader to recognize the DLL.

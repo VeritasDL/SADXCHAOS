@@ -544,7 +544,15 @@ void SpinMaTimerCheck()
 	if (SpinMa_Timer > 0)
 	{
 		SpinMa_Timer--;
-		SpinMa();
+		for (int j = 0; j < (__int16)DynamicCOLCount_A; ++j)
+		{
+			COL* v1 = ColList[j];
+			auto v2 = v1->Model;
+			int e = rand() % 2;
+			originalAng[e] = v2->ang[e];  // Store the original value of v2->ang[e] in originalAng[e]
+			v2->ang[e] -= 400;
+		}
+		//SpinMa();
 	}
 	if (SpinMa_Timer == 1)
 	{

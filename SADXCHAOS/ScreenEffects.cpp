@@ -320,16 +320,18 @@ void SpinMa()
 {
     if (!CurrentLandTable)
     { 
+        NewEffect();
         return;
     }
-    for (int j = 0; j < (__int16)DynamicCOLCount_A; ++j)
-    {
-        COL* v1 = ColList[j];
-        auto v2 = v1->Model;
-        int e = rand() % 2;
-        originalAng[e] = v2->ang[e];  // Store the original value of v2->ang[e] in originalAng[e]
-        v2->ang[e] -= 400;
-    }
+    //for (int j = 0; j < (__int16)DynamicCOLCount_A; ++j)
+    //{
+    //    COL* v1 = ColList[j];
+    //    auto v2 = v1->Model;
+    //    int e = rand() % 2;
+    //    originalAng[e] = v2->ang[e];  // Store the original value of v2->ang[e] in originalAng[e]
+    //    v2->ang[e] -= 400;
+    //}
+    SpinMa_Timer = 300;
 }
 void SaveColAng()
 {

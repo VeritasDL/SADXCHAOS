@@ -1,6 +1,7 @@
 #pragma once
 //ScanLine
 FunctionPointer(void, ___njColorBlendingMode, (int, int), 0x004030D0);
+extern Angle originalAng[1024];
 struct ScanLineWork
 {
 	NJS_COLOR line_col;
