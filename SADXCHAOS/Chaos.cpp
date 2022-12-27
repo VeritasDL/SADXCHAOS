@@ -193,6 +193,10 @@ extern "C"
 			//	TestmaObj->ocp = objCondition;
 			//}
 		}
+		if (Controllers[0].PressedButtons & Buttons_B) //Debug Testing Part Two 
+		{
+			//RestoreColAng();
+		}
 	}
 	__declspec(dllexport) ModInfo SADXModInfo = { ModLoaderVer }; // This is needed for the Mod Loader to recognize the DLL.
 }

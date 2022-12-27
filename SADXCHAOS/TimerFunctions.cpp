@@ -35,6 +35,7 @@ int HAHA69_Timer = 0;
 int Bl1ngBl0ng = 50;
 int ColorsRandChance = 0;
 int SpinMa_Timer = 0;
+int SpinMaRestore_Timer = 0;
 unsigned int Colors69[] =
 {
 0xFFbcdcb3,
@@ -559,8 +560,21 @@ void SpinMaTimerCheck()
 	}
 	if (SpinMa_Timer == 1)
 	{
+		SpinMaRestore_Timer = 69;
 		SpinMa_Timer = 0;
+		//RestoreColAng();
+	}
+}
+void SpinMaRestoreTimerChecker()
+{
+	if (SpinMaRestore_Timer > 0)
+	{
+		SpinMaRestore_Timer--;
+	}
+	if (SpinMaRestore_Timer == 1)
+	{
 		RestoreColAng();
+		SpinMaRestore_Timer = 0;
 	}
 }
 void CheckAllEffectsTimer()
@@ -588,4 +602,5 @@ void CheckAllEffectsTimer()
 	RandomBootTimerCheck();
 	Haha69TimerCheck();
 	SpinMaTimerCheck();
+	SpinMaRestoreTimerChecker();
 }
