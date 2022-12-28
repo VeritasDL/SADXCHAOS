@@ -179,19 +179,55 @@ extern "C"
 		CheckAllEffectsTimer();
 		DebugPrintOutCheck();
 	}
+	task* pTaskPtrList[1024] = { 0 };
+	taskwk* pTaskTwpList[1024] = { 0 };
+	NJS_POINT3 pTaskPosList[1024] = {0,0,0};
+	int test1 = 0;
 	__declspec(dllexport) void __cdecl OnControl()
 	{
 		//Executed when the game processes input
 		if (Controllers[0].PressedButtons & Buttons_Y) //Debug Testing
 		{
 			//SpinMa_Timer = 300;
-			SpinMa();
-			//for (int j = 0; j < 1024; ++j)
+			//SpinMa();
+			for (int j = 0; j < 1024; ++j)
+			{
+				if (!objStatusEntry[j].pTask)
+				{
+					continue;
+				}
+				if (!objStatusEntry[j].pTask->twp)
+				{
+					continue;
+				}
+				pTaskPtrList[test1] = objStatusEntry[j].pTask;
+				test1++;
+			}
+			//for (int m = 0; m < 1024; ++m)
 			//{
-			//	task* TestmaObj;
-			//	OBJ_CONDITION* objCondition = objStatusEntry[j];
-			//	TestmaObj->ocp = objCondition;
+			//	if (!pTaskPtrList[m]->last)
+			//	{
+			//		continue;
+			//	}
 			//}
+			for (int j = 0; j < 1024; ++j)
+			{
+				if (!pTaskPtrList[j]->twp)
+				{
+					continue;
+				}
+				pTaskTwpList[j] = pTaskPtrList[j]->twp;
+			}
+			for (int j = 0; j < 1024; ++j)
+			{
+				if (!pTaskTwpList[j]->pos.x && !pTaskTwpList[j]->pos.y && !pTaskTwpList[j]->pos.z)
+				{
+					continue;
+				}
+				pTaskPosList[j] = pTaskTwpList[j]->pos;
+			}
+
+
 		}
 		if (Controllers[0].PressedButtons & Buttons_B) //Debug Testing Part Two 
 		{

@@ -560,7 +560,7 @@ void SpinMaTimerCheck()
 	}
 	if (SpinMa_Timer == 1)
 	{
-		SpinMaRestore_Timer = 69;
+		SpinMaRestore_Timer = 100;
 		SpinMa_Timer = 0;
 		//RestoreColAng();
 	}
