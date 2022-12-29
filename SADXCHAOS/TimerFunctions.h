@@ -35,6 +35,7 @@ extern int HAHA69_Timer;
 extern bool DebugEnabled;
 extern int SpinMa_Timer;
 extern int SpinMaRestore_Timer;
+extern int Tornado_Timer;
 void NoClipTimerCheck();
 void InputInvertTimerCheck();
 void CameraDeattchTimerCheck();

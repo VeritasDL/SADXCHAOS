@@ -932,4 +932,9 @@ void SplashMa()
 {
 	strcpy_s(LastEffect, 128, "Splash");
 	PSetSplashEffect(playertwp[0]);
+
+}
+void Tornado()
+{
+	Tornado_Timer = 500;
 }

@@ -36,6 +36,18 @@ int Bl1ngBl0ng = 50;
 int ColorsRandChance = 0;
 int SpinMa_Timer = 0;
 int SpinMaRestore_Timer = 0;
+int Tornado_Timer = 0;
+#define DISTANCE_THRESHOLD 200*200
+#define SPIRAL_STEP_SIZE 0.01
+task* pTaskPtrList[1024] = { 0 };
+taskwk* pTaskTwpList[1024] = { 0 };
+NJS_POINT3 playerPos = { 0,0,0 };
+taskwk* nearbyTaskTwpList[1024] = { 0 };
+NJS_POINT3 pTaskPosList[1024] = { 0,0,0 };
+const NJS_VECTOR upVector = { 0,1,0 };
+
+int TaskArraySize = 0;
+int numNearbyTasks = 0;
 unsigned int Colors69[] =
 {
 0xFFbcdcb3,
@@ -577,6 +589,92 @@ void SpinMaRestoreTimerChecker()
 		SpinMaRestore_Timer = 0;
 	}
 }
+void crossProduct(const NJS_VECTOR* v1, const NJS_VECTOR* v2, NJS_VECTOR* result)
+{
+	result->x = v1->y * v2->z - v2->y * v1->z;
+	result->y = v2->x * v1->z - v1->x * v2->z;
+	result->z = v1->x * v2->y - v2->x * v1->y;
+}
+void TorandoTimerChecker()
+{
+	if (Tornado_Timer == 500)
+	{
+		for (int j = 0; j < 1024; ++j)
+		{
+			if (!objStatusEntry[j].pTask)
+			{
+				continue;
+			}
+			if (!objStatusEntry[j].pTask->twp)
+			{
+				continue;
+			}
+			pTaskPtrList[TaskArraySize] = objStatusEntry[j].pTask;
+			TaskArraySize++;
+		}
+		for (int j = 0; j < TaskArraySize; ++j)
+		{
+			if (!pTaskPtrList[j]->twp)
+			{
+				continue;
+			}
+			pTaskTwpList[j] = pTaskPtrList[j]->twp;
+		}
+		for (int i = 0; i < TaskArraySize; i++)
+		{
+			playerPos = playertwp[0]->pos;
+			taskwk* task = pTaskTwpList[i];
+			if (!task) continue;
+			NJS_POINT3 taskPos = task->pos;
+			float dx = taskPos.x - playerPos.x;
+			float dy = taskPos.y - playerPos.y;
+			float dz = taskPos.z - playerPos.z;
+			float distance = dx * dx + dy * dy + dz * dz;
+			if (distance < DISTANCE_THRESHOLD)
+			{
+				nearbyTaskTwpList[numNearbyTasks] = pTaskTwpList[i];
+				numNearbyTasks++;
+			}
+		}
+		Tornado_Timer--;
+	}
+		// Now, nearbyTaskTwpList contains pointers to all tasks that are within 300 units of playerPos
+		// and numNearbyTasks contains the number of such tasks.
+	NJS_VECTOR moveVector = { 0,0,0 };
+	NJS_VECTOR distanceVector = { 0,0,0 };
+	if (Tornado_Timer < 500 && Tornado_Timer != 0)
+	{
+		int a = 1;
+		int b = 1;
+		for (int i = 0; i < numNearbyTasks; i++)
+		{
+			taskwk* task = nearbyTaskTwpList[i];
+			distanceVector.x = playerPos.x - task->pos.x;
+			distanceVector.y = playerPos.y - task->pos.y;
+			distanceVector.z = playerPos.z - task->pos.z;
+			float distance = sqrt(distanceVector.x * distanceVector.x + distanceVector.y * distanceVector.y + distanceVector.z * distanceVector.z);
+			float stepSize = SPIRAL_STEP_SIZE * distance;
+			float angle = atan2(distanceVector.z, distanceVector.x);
+			crossProduct(&distanceVector, &upVector, &moveVector);
+			//should give the anticlockwise direction it will want to rotate in?
+			//normalise that and also add on a vector to move it towards the player
+
+
+
+			//task->pos.x += stepSize * cos(angle);
+			//task->pos.y += stepSize * sin(angle);
+			//task->pos.z += stepSize * (float)a / (float)b;
+			//int c = a + b;
+			//a = b;
+			//b = c;
+		}
+		
+	}
+	if (Tornado_Timer == 1)
+	{
+		Tornado_Timer = 0;
+	}
+}
 void CheckAllEffectsTimer()
 {
 	NoClipTimerCheck();
@@ -603,4 +701,5 @@ void CheckAllEffectsTimer()
 	Haha69TimerCheck();
 	SpinMaTimerCheck();
 	SpinMaRestoreTimerChecker();
+	TorandoTimerChecker();
 }
