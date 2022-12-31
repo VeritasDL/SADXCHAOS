@@ -26,3 +26,9 @@ void FacePlayer()
 {
 	FaceAng = -NJM_RAD_ANG(atan2f(FaceZ, FaceX)) - 0x4000;
 }
+void crossProduct(const NJS_VECTOR* v1, const NJS_VECTOR* v2, NJS_VECTOR* result)
+{
+	result->x = v1->y * v2->z - v2->y * v1->z;
+	result->y = v2->x * v1->z - v1->x * v2->z;
+	result->z = v1->x * v2->y - v2->x * v1->y;
+}

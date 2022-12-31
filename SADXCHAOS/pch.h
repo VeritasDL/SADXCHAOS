@@ -29,4 +29,5 @@
 #include "ScreenEffects.h"
 #include "CustomChaosSADXFunctions.h"
 #include "MemAccess.h"
+#include "TornadoMa.h"
 #endif //PCH_H

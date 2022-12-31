@@ -25,6 +25,7 @@ DataPointer(NJS_TEXLIST, ev_effect_list19, 0x2C49740);
 DataPointer(NJS_TEXLIST, texlist_tate_chg, 0x01FF86C4);
 void PlaceInFront();
 void FacePlayer();
+void crossProduct(const NJS_VECTOR* v1, const NJS_VECTOR* v2, NJS_VECTOR* result);
 extern float PlaceX;
 extern float PlaceZ;
 extern float FaceX;

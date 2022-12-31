@@ -75,6 +75,9 @@
     <ClInclude Include="CustomChaosSADXFunctions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TornadoMa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -138,6 +141,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CustomChaosSADXFunctions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TornadoMa.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
