@@ -170,6 +170,10 @@ extern "C"
 		}
 		if (GameState != 15 && GameState != 16 && Tornado_Timer != 0)
 		{
+			numNearbyTasks = 0;
+			TaskArraySize = 0;
+			numNearbyTasks = 0;
+			numAllowedTasks = 0;
 			Tornado_Timer = 0;
 		}
 		if (GameState != 15 && GameState != 16 && g_RotaryEmerald_p != 0)

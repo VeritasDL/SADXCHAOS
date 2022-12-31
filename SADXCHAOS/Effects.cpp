@@ -936,5 +936,11 @@ void SplashMa()
 }
 void Tornado()
 {
+	if (Tornado_Timer)
+	{
+		NewEffect();
+		return;
+	}
 	Tornado_Timer = 500;
+	strcpy_s(LastEffect, 128, "Tornado");
 }

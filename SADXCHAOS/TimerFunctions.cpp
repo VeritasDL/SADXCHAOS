@@ -37,36 +37,53 @@ int ColorsRandChance = 0;
 int SpinMa_Timer = 0;
 int SpinMaRestore_Timer = 0;
 int Tornado_Timer = 0;
-#define DISTANCE_THRESHOLD 200*200
+#define DISTANCE_THRESHOLD 1000*1000
 task* pTaskPtrList[1024] = { 0 };
 taskwk* pTaskTwpList[1024] = { 0 };
 task* NearbyPTaskPtrList[1024] = { 0 };
-task* NearbyAllowedPTaskPtrList[1024] = { 0 };
-TaskFuncPtr* BlackListNearbyPTaskMainPrtList[] = {
-	(TaskFuncPtr*)0x634980, //People_Main 
-	(TaskFuncPtr*)0x4FAE30, //ODolsw 
-	(TaskFuncPtr*)0x40B3D0,
-	(TaskFuncPtr*)0x40B2A0
-};
-size_t BlackListNearbyPTaskMainPrtListSize = LengthOfArray(BlackListNearbyPTaskMainPrtList);
 NJS_POINT3 playerPos = { 0,0,0 };
 taskwk* nearbyTaskTwpList[1024] = { 0 };
+task* nearbyAllowedPTaskList[1024] = { 0 };
+TaskFuncPtr BlackListNearbyPTaskMainPrtList[] = {
+	(TaskFuncPtr)0x634980, //People_Main 
+	(TaskFuncPtr)0x4FAE30, //ODolsw
+	(TaskFuncPtr)0x40B3D0,
+	(TaskFuncPtr)0x40B2A0,
+	(TaskFuncPtr)0x438090, //camera_main
+	(TaskFuncPtr)0x49A9B0, //sonic_main
+	(TaskFuncPtr)0x461700, //tails_main
+	(TaskFuncPtr)0x47A770, //Knux_main
+	(TaskFuncPtr)0x48ABF0, //amy_main
+	(TaskFuncPtr)0x483430, //gamma_main
+	(TaskFuncPtr)0x490A00, //big_main
+	(TaskFuncPtr)0x7B40C0, //tikal_main
+	(TaskFuncPtr)0x7B4EF0, //eggman_main
+	(TaskFuncPtr)0x640850, //SceneChange_Main
+	(TaskFuncPtr)0x525060, //SceneChangeEC_Main
+	(TaskFuncPtr)0x52D710, //SceneChangeEC2_Main
+	(TaskFuncPtr)0x5394F0, //OScenechg
+	(TaskFuncPtr)0x545670, //OCScenechg
+	(TaskFuncPtr)0x7B0C80, //CScenechanger
+	(TaskFuncPtr)0x539220, //ChangeSceneMR
+	(TaskFuncPtr)0x6406C0 //Apart of SceneChange_Main seems to be used as the Main Exec for the SS Transitions? (maybe more? idk yet)
+};
+size_t BlackListNearbyPTaskMainPrtListSize = LengthOfArray(BlackListNearbyPTaskMainPrtList);
 NJS_POINT3 pTaskPosList[1024] = { 0,0,0 };
 const NJS_VECTOR upVector = { 0,1,0 };
-float SMALL_NUMBER = 0.025;
+float SMALL_NUMBER = 0.25;
 float rotateSpeed(float dist)
 {
-	if (dist > 25)
-		return sqrt(dist - 25) + SMALL_NUMBER;
+	if (dist > 20)
+		return (sqrt(dist - 20) + SMALL_NUMBER) /2;
 	else
 		return SMALL_NUMBER;
 }
 float moveInSpeed(float dist)
 {
-	if (dist > 30)
+	if (dist > 25)
 		return sqrt(dist) / 15;
 	else
-		return max(0, dist - 30) / 15;
+		return max(0, dist - 20) / 15;
 }
 void multVec(NJS_VECTOR* vec, float scalar)
 {
@@ -633,7 +650,7 @@ void crossProduct(const NJS_VECTOR* v1, const NJS_VECTOR* v2, NJS_VECTOR* result
 	result->y = v2->x * v1->z - v1->x * v2->z;
 	result->z = v1->x * v2->y - v2->x * v1->y;
 }
-int numAllowedNearByTask;
+int numAllowedTasks = 0;
 void TorandoTimerChecker()
 {
 	NJS_VECTOR moveVector = { 0,0,0 };
@@ -678,6 +695,30 @@ void TorandoTimerChecker()
 				numNearbyTasks++;
 			}
 		}
+		//take list of NearbyPTaskPtrList and check it  for  BlackListNearbyPTaskMainPrtList
+
+		//NearbyAllowedpTaskPtrList needs to hold the list of allowed PtaskPointers
+		for (int i = 0; i < numNearbyTasks; i++)
+		{
+			task* task = NearbyPTaskPtrList[i];
+			if (!task) continue;
+			bool isBlacklisted = false;
+			for (UINT32 j = 0; j < BlackListNearbyPTaskMainPrtListSize; j++) {
+				if (task->exec == BlackListNearbyPTaskMainPrtList[j]) {
+					isBlacklisted = true;
+					break;
+				}
+			}
+
+			if (!isBlacklisted) {
+				nearbyAllowedPTaskList[numAllowedTasks] = task;
+				numAllowedTasks++;
+			}
+			
+		}
+
+
+
 		Tornado_Timer--;
 	}
 	// Now, nearbyTaskTwpList contains pointers to all tasks that are within 300 units of playerPos
@@ -691,32 +732,18 @@ void TorandoTimerChecker()
 	//blacklist bad main subs and make new "ValidNearbyPTaskPtrList"?
 	//whitelist main subs and make new "ValidNearbyPTaskPtrList"?
 	//
-
-
 	if (Tornado_Timer < 500 && Tornado_Timer != 0)
 	{
-		for (int i = 0; i < numNearbyTasks; i++)
-		{
-			for (int l = 0; l < BlackListNearbyPTaskMainPrtListSize; l++)
-			{
-				if (NearbyPTaskPtrList[i]->exec != (TaskFuncPtr)BlackListNearbyPTaskMainPrtList[l])
-				{
-					NearbyAllowedPTaskPtrList[i] = NearbyPTaskPtrList[i];
-					numAllowedNearByTask++;
-				}
-			}
-		}
 		int a = 1;
 		int b = 1;
-		for (int i = 0; i < numAllowedNearByTask; i++)
+		for (int i = 0; i < numAllowedTasks; i++)
 		{
-			
-			for (int j = 0; j < numAllowedNearByTask; ++j)
+			if (!nearbyAllowedPTaskList[i]->twp)
 			{
-
+				continue;
 			}
 			playerPos = playertwp[0]->pos;
-			taskwk* task = nearbyTaskTwpList[i];
+			taskwk* task = nearbyAllowedPTaskList[i]->twp;
 			distanceVector.x = playerPos.x - task->pos.x;
 			distanceVector.y = playerPos.y - task->pos.y;
 			distanceVector.z = playerPos.z - task->pos.z;
@@ -733,8 +760,16 @@ void TorandoTimerChecker()
 	}
 	if (Tornado_Timer == 1)
 	{
+		numNearbyTasks = 0;
+		TaskArraySize = 0;
+		numNearbyTasks = 0;
+		numAllowedTasks = 0;
 		Tornado_Timer = 0;
 	}
+}
+void ClearSpinMaArrays()
+{
+
 }
 void CheckAllEffectsTimer()
 {
