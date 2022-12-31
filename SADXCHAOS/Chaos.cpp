@@ -168,6 +168,10 @@ extern "C"
 		{
 			ResetTextureBools();
 		}
+		if (GameState != 15 && GameState != 16 && Tornado_Timer != 0)
+		{
+			Tornado_Timer = 0;
+		}
 		if (GameState != 15 && GameState != 16 && g_RotaryEmerald_p != 0)
 		{
 			FreeTask(g_RotaryEmerald_p);
