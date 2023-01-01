@@ -20,7 +20,7 @@ extern "C"
 	{
 		Init_Fixes(path, helperFunctions);
 		init_FreeMovements();
-		strcpy_s(LastEffect, 128, "Chaos Edition 2.0b - D");
+		strcpy_s(LastEffect, 128, "Chaos Edition 2.1b - 1");
 	}
 	ChaosS ChaosArray[135]
 	{
@@ -193,10 +193,6 @@ extern "C"
 		if (Controllers[0].PressedButtons & Buttons_Y) //Debug Testing
 		{
 			Tornado();
-		}
-		if (Controllers[0].PressedButtons & Buttons_B) //Debug Testing Part Two 
-		{
-			//RestoreColAng();
 		}
 	}
 	__declspec(dllexport) ModInfo SADXModInfo = { ModLoaderVer }; // This is needed for the Mod Loader to recognize the DLL.

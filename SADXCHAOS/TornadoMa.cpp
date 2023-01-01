@@ -11,8 +11,8 @@ int numAllowedTasks = 0;
 TaskFuncPtr BlackListNearbyPTaskMainPrtList[] = {
 	(TaskFuncPtr)0x634980, //People_Main 
 	(TaskFuncPtr)0x4FAE30, //ODolsw
-	(TaskFuncPtr)0x40B3D0,
-	(TaskFuncPtr)0x40B2A0,
+	(TaskFuncPtr)0x40B3D0, //Unknown
+	(TaskFuncPtr)0x40B2A0, //Unknown
 	(TaskFuncPtr)0x438090, //camera_main
 	(TaskFuncPtr)0x49A9B0, //sonic_main
 	(TaskFuncPtr)0x461700, //tails_main
@@ -67,36 +67,28 @@ float modVec(NJS_VECTOR* vec)
 }
 int TaskArraySize = 0;
 int numNearbyTasks = 0;
-
 void TornadoMa()
 {
 	NJS_VECTOR moveVector = { 0,0,0 };
 	NJS_VECTOR distanceVector = { 0,0,0 };
-	if (Tornado_Timer == 500)
-	{
-		for (int j = 0; j < 1024; ++j)
-		{
-			if (!objStatusEntry[j].pTask)
-			{
+	if (Tornado_Timer == 500)	{
+		for (int j = 0; j < 1024; ++j) {
+			if (!objStatusEntry[j].pTask) {
 				continue;
 			}
-			if (!objStatusEntry[j].pTask->twp)
-			{
+			if (!objStatusEntry[j].pTask->twp) {
 				continue;
 			}
 			pTaskPtrList[TaskArraySize] = objStatusEntry[j].pTask;
 			TaskArraySize++;
 		}
-		for (int j = 0; j < TaskArraySize; ++j)
-		{
-			if (!pTaskPtrList[j]->twp)
-			{
+		for (int j = 0; j < TaskArraySize; ++j) {
+			if (!pTaskPtrList[j]->twp) {
 				continue;
 			}
 			pTaskTwpList[j] = pTaskPtrList[j]->twp;
 		}
-		for (int i = 0; i < TaskArraySize; i++)
-		{
+		for (int i = 0; i < TaskArraySize; i++)	{
 			playerPos = playertwp[0]->pos;
 			taskwk* task = pTaskTwpList[i];
 			if (!task) continue;
@@ -105,18 +97,13 @@ void TornadoMa()
 			float dy = taskPos.y - playerPos.y;
 			float dz = taskPos.z - playerPos.z;
 			float distance = dx * dx + dy * dy + dz * dz;
-			if (distance < DISTANCE_THRESHOLD)
-			{
+			if (distance < DISTANCE_THRESHOLD) {
 				nearbyTaskTwpList[numNearbyTasks] = pTaskTwpList[i];
 				NearbyPTaskPtrList[numNearbyTasks] = pTaskPtrList[i];
 				numNearbyTasks++;
 			}
 		}
-		//take list of NearbyPTaskPtrList and check it  for  BlackListNearbyPTaskMainPrtList
-
-		//NearbyAllowedpTaskPtrList needs to hold the list of allowed PtaskPointers
-		for (int i = 0; i < numNearbyTasks; i++)
-		{
+		for (int i = 0; i < numNearbyTasks; i++) {
 			task* task = NearbyPTaskPtrList[i];
 			if (!task) continue;
 			bool isBlacklisted = false;
@@ -126,37 +113,18 @@ void TornadoMa()
 					break;
 				}
 			}
-
 			if (!isBlacklisted) {
 				nearbyAllowedPTaskList[numAllowedTasks] = task;
 				numAllowedTasks++;
 			}
-
 		}
-
-
-
 		Tornado_Timer--;
 	}
-	// Now, nearbyTaskTwpList contains pointers to all tasks that are within 300 units of playerPos
-	// and numNearbyTasks contains the number of all tasks that are within 300 units of playerPos
-	// and NearbyPTaskPtrList contains the task Pointer to all tasks that are within 300 units of playerPos
-	// Debug Print last updated task addr to console? 
-	// 
-	//Now look thru NearbyPTaskPtrList's for Main Subs of task's that crash when moved?
-	//or figure out what objects are crashing and why, (current list of crash addr's 0x0040B3D0, 0x0040B2A0 
-	//
-	//blacklist bad main subs and make new "ValidNearbyPTaskPtrList"?
-	//whitelist main subs and make new "ValidNearbyPTaskPtrList"?
-	//
-	if (Tornado_Timer < 500 && Tornado_Timer != 0)
-	{
+	if (Tornado_Timer < 500 && Tornado_Timer != 0) {
 		int a = 1;
 		int b = 1;
-		for (int i = 0; i < numAllowedTasks; i++)
-		{
-			if (!nearbyAllowedPTaskList[i]->twp)
-			{
+		for (int i = 0; i < numAllowedTasks; i++) {
+			if (!nearbyAllowedPTaskList[i]->twp) {
 				continue;
 			}
 			playerPos = playertwp[0]->pos;
@@ -171,7 +139,7 @@ void TornadoMa()
 			multVec(&moveVector, rotateSpeed(distance));
 			njAddVector(&moveVector, &distanceVector);
 			njAddVector(&task->pos, &moveVector);
-			PrintDebug("last edited task: %X \n", (int)NearbyPTaskPtrList[i]);
+			PrintDebug("last edited task: %X \n", (int)NearbyPTaskPtrList[i]); //switched from NearbyPTaskPtrList to nearbyAllowedPTaskList temp.walker need to disable before release
 		}
 	}
 }

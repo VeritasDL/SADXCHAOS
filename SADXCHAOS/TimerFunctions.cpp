@@ -584,7 +584,6 @@ void TorandoTimerChecker()
 		TornadoMa();
 		Tornado_Timer--;
 	}
-	
 	if (Tornado_Timer == 1)
 	{
 		numNearbyTasks = 0;
@@ -593,10 +592,6 @@ void TorandoTimerChecker()
 		numAllowedTasks = 0;
 		Tornado_Timer = 0;
 	}
-}
-void ClearSpinMaArrays()
-{
-
 }
 void CheckAllEffectsTimer()
 {
