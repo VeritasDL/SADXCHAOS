@@ -257,7 +257,7 @@ void __cdecl initPillarTask(task* tp)
 	tp->disp = dispPillarTask;
 	tp->dest = destTaskGeneric;
 }
-void __cdecl createPillar(float pos_x, float pos_y, float pos_z, float play_spd, float scale)
+void __cdecl createPillar1(float pos_x, float pos_y, float pos_z, float play_spd, float scale)
 {
 	taskwk* twp;
 	PillarWork* pillar;
@@ -307,7 +307,7 @@ void __cdecl execWaterPillarTask(task* tp)
 		if (++twp->counter.l == (int)timer)
 		{
 			//Main pillar body
-			createPillar(twp->pos.x, twp->pos.y, twp->pos.z, twp->timer.f, twp->scl.x);
+			createPillar1(twp->pos.x, twp->pos.y, twp->pos.z, twp->timer.f, twp->scl.x);
 		}
 		timer = 1.0f / twp->timer.f;
 		if (twp->counter.l >= (unsigned int)(20.0f * timer) && !(twp->counter.l % (unsigned int)(timer * 5.0f)))
@@ -334,7 +334,7 @@ void __cdecl initWaterPillarTask(task* tp)
 	tp->disp = TaskEmptySub;
 	tp->dest = TaskEmptySub;
 }
-void __cdecl WaterPillarOn(float pos_x, float pos_y, float pos_z, float play_spd, float scale)
+void __cdecl WaterPillarOn1(float pos_x, float pos_y, float pos_z, float play_spd, float scale)
 {
 	taskwk* twp;
 	p_WaterPillarTask = CreateElementalTask(2, 5, initWaterPillarTask);
@@ -349,7 +349,7 @@ void __cdecl WaterPillarOn(float pos_x, float pos_y, float pos_z, float play_spd
 	twp->timer.f = play_spd;
 	twp->counter.l = 0;
 }
-void __cdecl WaterPillarOff()
+void __cdecl WaterPillarOff1()
 {
 	if (p_WaterPillarTask)
 	{

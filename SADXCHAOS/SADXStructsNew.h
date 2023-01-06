@@ -1128,7 +1128,6 @@ struct AL_TIME
 	char frame;
 };
 
-
 struct cnkobj
 {
 	unsigned int evalflags;
@@ -1714,7 +1713,7 @@ struct particle_info
 	NJS_ARGB argb;
 };
 
-struct __declspec(align(4)) stcWaterSurface
+struct stcWaterSurface
 {
 	float f32x0;
 	float f32y0;
@@ -2166,7 +2165,7 @@ struct PanelPrmType
 	unsigned __int8 PvrIdx;
 };
 
-struct __declspec(align(4)) DDlgType
+struct DDlgType
 {
 	float CntrX;
 	float CntrY;
@@ -2182,7 +2181,7 @@ struct AvaStgActT
 	unsigned __int8 Act;
 };
 
-struct __declspec(align(4)) AvaStgActPrmT
+struct AvaStgActPrmT
 {
 	AvaStgActT* StgActPtr;
 	unsigned __int8 Num;
@@ -2193,6 +2192,65 @@ struct ModeSelPrmType
 	AdvaModeEnum PrevMode;
 	AdvaModeEnum NextMode;
 	AdvaModeEnum NextModeSub;
+};
+
+struct FileSelWk
+{
+	AdvaStatEnum Stat;
+	AdvaModeEnum PrevMode;
+	AdvaModeEnum NextMode;
+	float BaseZ;
+	float T;
+	unsigned int BaseCol;
+	float CsrScale;
+	unsigned int CsrCol;
+	int CsrAniAng;
+	FileSbMdEnum SubMode;
+	int GB_plBak;
+	AvaCharEnum SelCh;
+	__int16 WaitTime;
+	unsigned __int8 CsrAlpha;
+	float OfsX;
+};
+
+#pragma pack(push, 2)
+struct WakuPrmT
+{
+	float OfsX;
+	float OfsY;
+	float OfsZ;
+	unsigned int ColU;
+	unsigned int ColD;
+	unsigned __int8 KadoPvrIdx;
+	unsigned __int8 YokoPvrIdx;
+	unsigned __int8 TatePvrIdx;
+};
+#pragma pack(pop)
+
+struct AvaTexLdPrmT
+{
+	char* FileName;
+	NJS_TEXLIST* TexListPtr;
+};
+
+struct GH_FONT_INFO
+{
+	float char_width;
+	float char_height;
+	float tex_width;
+	float tex_height;
+	NJS_TEXLIST* texlist;
+	unsigned __int8* prop_tbl;
+	unsigned int color[4];
+};
+
+struct _GC_MEMOCA_STATE
+{
+	unsigned __int8 u8FileName;
+	char* string;
+	unsigned __int8 u8FileNum;
+	ERR_TYPE ErrFlag[1];
+	unsigned __int8 MsgFlag;
 };
 
 struct TrialActSelWk
@@ -2216,7 +2274,7 @@ struct TrialActSelWk
 	unsigned __int8 SelStg;
 };
 
-struct __declspec(align(4)) CharMdlWk
+struct CharMdlWk
 {
 	task* PlTskPtrs[7];
 	task* CamTskPtr;
@@ -2228,7 +2286,7 @@ struct __declspec(align(4)) CharMdlWk
 	unsigned __int8 SelFlg;
 };
 
-struct __declspec(align(4)) CharSelWk
+struct CharSelWk
 {
 	AdvaStatEnum Stat;
 	AdvaModeEnum PrevMode;
@@ -2422,9 +2480,9 @@ struct bubble_data
 	float y_spd_min;
 	float y_spd_max;
 };
-// Title screen worker
 
-struct __declspec(align(4)) TitleNewWk
+// Title screen worker
+struct TitleNewWk
 {
 	AdvaStatEnum Stat;
 	AdvaModeEnum PrevMode;
@@ -2775,7 +2833,7 @@ union STAFF_DATA_FLAG
 	unsigned __int8 interval;
 };
 
-struct __declspec(align(4)) STAFF_DATA
+struct STAFF_DATA
 {
 	unsigned __int8 StaffType;
 	STAFF_DATA_FLAG flag;
@@ -2808,4 +2866,1130 @@ struct standlight_taskwk
 	eventwk* ewp;
 };
 
+// Event camera
+
+struct EV_CAMERA_W_target
+{
+	unsigned __int8 mode;
+	NJS_POINT3 pos;
+	task* obj;
+};
+
+struct EV_CAMERA_W_pers
+{
+	unsigned __int8 hokanMode;
+	unsigned __int16 time;
+	unsigned __int16 count;
+	int ang;
+	int oldang;
+	int newang;
+};
+
+struct EV_CAMERA_W_path
+{
+	cpathtag* tag;
+	float timer;
+	float speed;
+};
+
+struct EV_CAMERA_W_chase
+{
+	unsigned __int8 mode;
+	unsigned __int16 time;
+	unsigned __int16 count;
+	NJS_POINT3 pos;
+	Angle3 ang;
+	float dist;
+	NJS_POINT3 pos2;
+	Angle3 ang2;
+	float dist2;
+	task* obj;
+};
+
+struct EV_CAMERA_W
+{
+	unsigned __int8 posHokanMode;
+	unsigned __int8 angHokanMode;
+	unsigned __int16 post;
+	unsigned __int16 posc;
+	unsigned __int16 angt;
+	unsigned __int16 angc;
+	NJS_POINT3 pos;
+	Angle3 ang;
+	NJS_POINT3 oldpos;
+	Angle3 oldang;
+	NJS_POINT3 newpos;
+	Angle3 newang;
+	EV_CAMERA_W_target target;
+	EV_CAMERA_W_chase chase;
+	EV_CAMERA_W_pers pers;
+	EV_CAMERA_W_path path;
+	EVINFO2* event;
+};
+
+// Chao
+
+struct AL_SHAPE_ELEMENT
+{
+	unsigned __int8 type;
+	unsigned __int8 DefaultEyeNum;
+	unsigned __int8 DefaultMouthNum;
+	unsigned __int8 HonbuNum;
+	unsigned __int8 ObakeHead;
+	unsigned __int8 ObakeBody;
+	unsigned __int8 MedalNum;
+	unsigned __int8 ColorNum;
+	unsigned __int8 NonTex;
+	unsigned __int8 JewelNum;
+	unsigned __int8 MultiNum;
+	char MinimalParts[8];
+	__int16 HPos;
+	__int16 VPos;
+	__int16 APos;
+	__int16 Growth;
+	unsigned __int8 name[8];
+	unsigned __int16 Skill[8];
+};
+
+struct AL_RECORD
+{
+	char RecordFlag;
+	AL_TIME time;
+	AL_SHAPE_ELEMENT ShapeElement;
+};
+
+struct CHAO_ID
+{
+	unsigned int gid[2];
+	unsigned int id[2];
+	unsigned int num;
+};
+
+struct AL_KARATE_PERSONAL_INFO
+{
+	unsigned __int8 rank;
+	unsigned __int8 level;
+	unsigned __int8 tournament;
+	unsigned __int16 nbBattle;
+	unsigned __int16 nbWin;
+	unsigned __int16 nbLose;
+	unsigned __int16 nbDraw;
+};
+
+struct AL_PARTS
+{
+	unsigned int MinimalFlag;
+	char MinimalParts[8];
+};
+
+struct AL_KNOWLEDGE_PLAYER
+{
+	char like;
+	unsigned __int8 fear;
+	unsigned __int16 distance;
+	unsigned __int16 meet;
+};
+
+struct AL_KNOWLEDGE_CHAO
+{
+	CHAO_ID id;
+	char like;
+	unsigned __int8 fear;
+	unsigned __int16 distance;
+	unsigned __int16 meet;
+};
+
+struct AL_KNOWLEDGE_BTL
+{
+	unsigned __int8 ArtFlag;
+	unsigned __int8 DanceFlag;
+	unsigned __int8 SongFlag;
+	unsigned __int8 MusicFlag;
+	unsigned __int16 SToyFlag;
+	unsigned __int16 LToyFlag;
+	int KwTimer;
+	AL_KNOWLEDGE_PLAYER player[6];
+	AL_KNOWLEDGE_CHAO chao[20];
+	AL_KNOWLEDGE_OTHER bhv[120];
+};
+
+struct AL_GENE
+{
+	char IsAnalyzed;
+	char EggColor;
+	CHAO_ID MotherID;
+	CHAO_ID FatherID;
+	char MotherName[8];
+	char FatherName[8];
+	char MGroundMotherName[8];
+	char MGroundFatherName[8];
+	char FGroundMotherName[8];
+	char FGroundFatherName[8];
+	unsigned __int8 Abl[8][2];
+	unsigned __int8 LifeTime[2];
+	char HPos[2];
+	char VPos[2];
+	char APos[2];
+	char Personality[13][2];
+	unsigned __int8 Taste[2];
+	unsigned __int8 Tv[2];
+	unsigned __int8 Music[2];
+	unsigned __int8 Color[2];
+	unsigned __int8 NonTex[2];
+	unsigned __int8 Jewel[2];
+	unsigned __int8 Multi[2];
+	unsigned __int8 EyePos[2];
+	unsigned __int8 EyeScl[2];
+	unsigned __int8 EyeRatio[2];
+	unsigned __int8 EyeColor[2];
+};
+
+struct AL_KNOWLEDGE_DX
+{
+	AL_KNOWLEDGE_PLAYER player[6];
+};
+
+struct CHAO_PARAM_GC
+{
+	unsigned __int8 GBAChao;
+	unsigned __int8 GBAEgg;
+	unsigned __int8 GBABerry[8];
+	unsigned __int8 padding0;
+	unsigned __int8 padding1;
+	unsigned int GBARing;
+	unsigned __int8 BootMethod;
+	unsigned __int8 Birthplace;
+	unsigned __int8 name[7];
+	unsigned __int8 GBAType;
+	unsigned __int8 GBASkin;
+	unsigned __int8 GBAMood;
+	unsigned __int8 GBABelly;
+	unsigned __int8 GBASleepy;
+	unsigned __int8 GBALonelyness;
+	unsigned __int8 padding2;
+	unsigned __int8 Exp[8];
+	unsigned __int8 Abl[8];
+	unsigned __int8 Lev[8];
+	unsigned __int16 Skill[8];
+	unsigned __int16 GBAPalette[16];
+	unsigned __int8 rmsg[16];
+	unsigned int runaway;
+	unsigned __int8 dummy[4];
+	unsigned __int8 type;
+	unsigned __int8 place;
+	__int16 like;
+	char ClassNum;
+	unsigned __int16 age;
+	unsigned __int16 old;
+	unsigned __int16 life;
+	unsigned __int16 LifeMax;
+	unsigned __int16 nbSucceed;
+	CHAO_ID ChaoID;
+	unsigned int LifeTimer;
+	AL_BODY_INFO body;
+	AL_RACE_PERSONAL_INFO race;
+	AL_KARATE_PERSONAL_INFO karate;
+	AL_PARTS PartsBTL;
+	AL_EMOTION emotion;
+	AL_KNOWLEDGE_BTL knowledgeBTL;
+	AL_GENE gene;
+	int IsInitializedDX;
+	AL_PARTS partsDX;
+	AL_RACE_PERSONAL_INFO_DX raceDX;
+	AL_KNOWLEDGE_DX knowledgeDX;
+};
+
+struct chao_save_info
+{
+	CHAO_PARAM_GC param;
+	unsigned __int8 dummy[736];
+};
+
+struct AL_RACE_INFO
+{
+	char RaceActiveFlag[3];
+	char CourseChallengedLevel[5];
+	char CourseClearedLevel[5];
+	AL_RECORD CourseRecord[5];
+	AL_TIME time;
+	char CurrRaceNum;
+	char CurrCourseNum;
+	char CurrLevelNum;
+	char nbUserEntry;
+	chao_save_info ChaoInfo[8];
+};
+
+struct AL_ST_POS
+{
+	NJS_POINT3 pos;
+	int angy;
+};
+
+struct TREE_SAVE_INFO
+{
+	unsigned __int8 kind;
+	unsigned __int8 state;
+	unsigned __int8 param;
+	unsigned __int8 water;
+	char FruitGrowth[3];
+	unsigned __int8 angy_pos;
+};
+
+struct PatChngObj
+{
+	obj* obj_p;
+	NJS_MATERIAL* mat_pa[8];
+};
+
+struct CHAO_INFO
+{
+	int EntryFlag;
+};
+
+struct AL_ENT_MENU_WORK
+{
+	int status;
+	int command;
+	eLayerNum LayerNum;
+	int nbRace;
+	int nbCourse;
+	int nbGarden;
+	eGardenNum GardenCursor;
+	int MaxLevel;
+	int nbCourseBeginner;
+	int nbCourseJewel;
+	int key;
+	int level;
+	int xpos;
+	int ypos;
+	int pre_xpos;
+	int pre_ypos;
+	int back_ypos;
+	int nbEntry;
+	task* ChaoTask[8];
+	CHAO_INFO ChaoInfo[4][8];
+	task* pManager;
+	task* pMessageBar;
+	task* pBackGround;
+	task* pLargeTitleBar;
+	task* pSmallTitleBar;
+	task* pBlueButtonModoru;
+	task* pBlueButtonSusumu;
+	int GardenActiveFlag[4];
+	const unsigned int* pMsgList;
+};
+
+struct MOTION_INFO
+{
+	unsigned __int16 mode;
+	float frame;
+	float start;
+	float end;
+	float spd;
+	NJS_MOTION* pMotion;
+};
+
+struct MOTION_TABLE
+{
+	NJS_MOTION* pMotion;
+	__int16 mode;
+	__int16 posture;
+	int next;
+	int link_step;
+	float start;
+	float end;
+	float spd;
+};
+
+struct MOTION_CTRL
+{
+	unsigned __int16 flag;
+	unsigned __int16 posture;
+	int curr_num;
+	int next_num;
+	float multi_spd;
+	float link_spd;
+	float ratio;
+	MOTION_INFO minfo[2];
+	MOTION_TABLE* table;
+};
+
+
+union TREE_WORK_counter
+{
+	unsigned __int8 b[4];
+	unsigned __int16 w[2];
+	unsigned int l;
+	float f;
+	void* ptr;
+};
+
+union TREE_WORK_timer
+{
+	char b[4];
+	__int16 w[2];
+	int l;
+	float f;
+	void* ptr;
+};
+
+union TREE_WORK_value
+{
+	char b[4];
+	__int16 w[2];
+	int l;
+	float f;
+	void* ptr;
+};
+
+struct FRUIT_INFO
+{
+	float growth;
+	float AimGrowth;
+	int SwingCounter;
+	NJS_POINT3 pos;
+	int angx;
+	int angy;
+};
+
+struct TREE_WORK
+{
+	char mode;
+	char smode;
+	unsigned __int8 id;
+	unsigned __int8 btimer;
+	__int16 flag;
+	unsigned __int16 wtimer;
+	TREE_WORK_counter counter;
+	TREE_WORK_timer timer;
+	TREE_WORK_value value;
+	Angle3 ang;
+	NJS_POINT3 pos;
+	NJS_POINT3 scl;
+	colliwk* cwp;
+	void* ewp;
+	unsigned __int8 kind;
+	unsigned __int8 state;
+	float growth;
+	int life;
+	int water;
+	unsigned __int8 pos_num;
+	FRUIT_INFO fruit[3];
+	float scale;
+	float ScaleSpd;
+	int ThirstyFlag;
+	int WaterFlag;
+	int LeafRotAng;
+	float LeafWidth;
+	int LeafDispNum;
+	int FruitRotAng;
+	float FruitWidth;
+	int FruitDispNum;
+	int SwingFlag;
+	int SwingCountFlag;
+	float SwingDist;
+	int RollAngle;
+	int TouchAngle;
+	int ChaoSwingPhase;
+	int RollPhase;
+	int garden;
+	TREE_SAVE_INFO* pMySaveInfo;
+	NJS_TEXLIST* texlist;
+	cnkobj* pLocalObject;
+	cnkobj* pShadowObject;
+	cnkobj* pCopyObject;
+};
+
+union chaowk_counter
+{
+	unsigned __int8 b[4];
+	unsigned __int16 w[2];
+	unsigned int l;
+	float f;
+	void* ptr;
+};
+
+union chaowk_timer
+{
+	char b[4];
+	__int16 w[2];
+	int l;
+	float f;
+	void* ptr;
+};
+
+union chaowk_value
+{
+	char b[4];
+	__int16 w[2];
+	int l;
+	float f;
+	void* ptr;
+};
+
+enum eKW_BHV_KIND : __int32
+{
+	KW_BHV_ART = 0x0,
+	KW_BHV_DANCE = 0x1,
+	KW_BHV_SING = 0x2,
+	KW_BHV_MUSIC = 0x3,
+	KW_BHV_MINI1 = 0x4,
+	KW_BHV_MINI2 = 0x5,
+	KW_BHV_MINI3 = 0x6,
+	KW_BHV_MINI4 = 0x7,
+	KW_BHV_MINI5 = 0x8,
+	KW_BHV_MINI6 = 0x9,
+	KW_BHV_MINI7 = 0xA,
+	KW_BHV_MINI8 = 0xB,
+	KW_BHV_MINI9 = 0xC,
+	KW_BHV_MINI10 = 0xD,
+	KW_BHV_MINI11 = 0xE,
+	KW_BHV_MINI12 = 0xF,
+	KW_BHV_MINI13 = 0x10,
+	KW_BHV_MINI14 = 0x11,
+	KW_BHV_MINI15 = 0x12,
+	KW_BHV_MINI16 = 0x13,
+	KW_BHV_MINI17 = 0x14,
+	KW_BHV_MINI18 = 0x15,
+	KW_BHV_TOY1 = 0x16,
+	KW_BHV_TOY2 = 0x17,
+	KW_BHV_TOY3 = 0x18,
+	KW_BHV_TOY4 = 0x19,
+	KW_BHV_TOY5 = 0x1A,
+	KW_BHV_TOY6 = 0x1B,
+	KW_BHV_TOY7 = 0x1C,
+	KW_BHV_TOY8 = 0x1D,
+	KW_BHV_TOY9 = 0x1E,
+	KW_BHV_TOY10 = 0x1F,
+	KW_BHV_TOY11 = 0x20,
+	KW_BHV_FLY = 0x21,
+	KW_BHV_SWIM = 0x22,
+	KW_BHV_CLIMB_TREE = 0x23,
+	KW_BHV_CLIMB_WALL = 0x24,
+	KW_BHV_WATER = 0x25,
+	KW_BHV_SWING = 0x26,
+	KW_BHV_SIT = 0x27,
+	KW_BHV_DENGURI = 0x28,
+	KW_BHV_TOILET = 0x29,
+	KW_BHV_PYON = 0x2A,
+	KW_BHV_BOWLING = 0x2B,
+	KW_BHV_FUKKIN = 0x2C,
+	KW_BHV_SHIRIFURI = 0x2D,
+	KW_BHV_OJIGI = 0x2E,
+	KW_BHV_CHIWA = 0x2F,
+	KW_BHV_NADERU = 0x30,
+	KW_BHV_AGERU = 0x31,
+	KW_BHV_TALK = 0x32,
+	KW_BHV_PUNCH = 0x33,
+	KW_BHV_OKOSU = 0x34,
+	KW_BHV_TEFURI = 0x35,
+	KW_BHV_HAKUSYU = 0x36,
+	KW_BHV_SURIYORU = 0x37,
+	KW_BHV_AKANBE = 0x38,
+	KW_BHV_WA = 0x39,
+	KW_BHV_NAGERU = 0x3A,
+	KW_BHV_FIGHT = 0x3B,
+	KW_BHV_IGAMI = 0x3C,
+	KW_BHV_LISTEN = 0x3D,
+	KW_BHV_WATCH = 0x3E,
+};
+
+struct KW_BHV_ENTRY
+{
+	eKW_BHV_KIND bhv;
+};
+
+struct AL_BEHAVIOR
+{
+	unsigned __int16 Flag;
+	unsigned __int16 Mode;
+	unsigned __int16 SubMode;
+	unsigned __int16 MoveMode;
+	int InterruptFlag;
+	int Timer;
+	int SubTimer;
+	int LimitTimer;
+	int BehaviorTimer;
+	unsigned __int16 Intention;
+	unsigned __int16 IntentionMode;
+	unsigned __int16 IntentionSubMode;
+	unsigned int IntentionTimer[18];
+	unsigned int IntervalTimer[128];
+	int FreeWork;
+	float MoveRadius;
+	NJS_POINT3 BasePos;
+	int(__cdecl* PrevFunc)(task*);
+	int nbBhvFuncEntry;
+	int CurrBhvFuncNum;
+	int(__cdecl* BhvFuncList[16])(task*);
+	int ReserveTimerList[16];
+	int CurrKwBhvNum;
+	KW_BHV_ENTRY KwBhvList[4];
+	unsigned int dummy[16];
+};
+
+struct AL_GROUP_OBJECT_LIST
+{
+	cnkobj* Zero[40];
+	cnkobj* Normal[40];
+	cnkobj* Swim[40];
+	cnkobj* Fly[40];
+	cnkobj* Run[40];
+	cnkobj* Power[40];
+};
+
+struct AL_SHAPE
+{
+	al_object* pObject;
+	al_object* CurrObjectList[40];
+	AL_GROUP_OBJECT_LIST* pObjectList;
+	AL_GROUP_OBJECT_LIST* pObjectListH;
+	AL_GROUP_OBJECT_LIST* pObjectListD;
+	NJS_POINT3 BodyPos;
+	NJS_POINT3 HeadPos;
+	NJS_POINT3 LeftHandPos;
+	NJS_POINT3 RightHandPos;
+	NJS_POINT3 LeftFootPos;
+	NJS_POINT3 RightFootPos;
+	NJS_POINT3 MouthPos;
+	NJS_POINT3 MouthVec;
+	NJS_POINT3 LeftEyePos;
+	NJS_POINT3 LeftEyeVec;
+	NJS_POINT3 RightEyePos;
+	NJS_POINT3 RightEyeVec;
+	cnkobj* pLeftHandItemObject;
+	NJS_TEXLIST* pLeftHandItemTexlist;
+	float LeftHandItemScale;
+	float LeftHandItemActiveFlag;
+	cnkobj* pRightHandItemObject;
+	NJS_TEXLIST* pRightHandItemTexlist;
+	float RightHandItemScale;
+	float RightHandItemActiveFlag;
+	unsigned __int16* palette;
+	unsigned __int16 Flag;
+	__int16 ColorNum;
+	__int16 EnvNum;
+	unsigned int IconColor;
+	float SclH;
+	float SclV;
+	float CamDist;
+};
+
+struct AL_ZONE
+{
+	unsigned __int16 Flag;
+	unsigned __int16 CurrNum;
+	float Ratio;
+	NJS_LINE Plane;
+};
+
+struct AL_ICON_INFO
+{
+	unsigned __int16 Mode;
+	unsigned __int16 TexNum;
+	unsigned __int16 Timer;
+	NJS_POINT3 Offset;
+	NJS_POINT3 Pos;
+	NJS_POINT3 Velo;
+	NJS_POINT3 Scl;
+	NJS_POINT3 SclSpd;
+};
+
+struct AL_ICON
+{
+	__int16 CurrType;
+	__int16 NextType;
+	int Timer;
+	int NextTimer;
+	int PuniPhase;
+	int PosPhase;
+	unsigned int Color;
+	unsigned __int16 TexAnimNum;
+	unsigned __int16 TexAnimTimer;
+	int ang;
+	NJS_POINT3 Up;
+	NJS_POINT3 Pos;
+	AL_ICON_INFO Upper;
+	AL_ICON_INFO Lower;
+};
+
+struct chaowk
+{
+	char mode;
+	char smode;
+	unsigned __int8 id;
+	unsigned __int8 btimer;
+	__int16 flag;
+	unsigned __int16 wtimer;
+	chaowk_counter counter;
+	chaowk_timer timer;
+	chaowk_value value;
+	Angle3 ang;
+	NJS_POINT3 pos;
+	NJS_POINT3 scl;
+	colliwk* cwp;
+	void* ewp;
+	unsigned int Timer;
+	task* pMayu;
+	task* pBookTask;
+	int NestFlag;
+	task* pAnyTask;
+	task* pAimTask;
+	int AimNum;
+	int RememberNum;
+	int pitch;
+	float ClimbFirstPos;
+	int IsParamCopy;
+	CHAO_PARAM_GC* pParamGC;
+	TMP_PARAM tmpParam;
+	int Stamina;
+	int AimStamina;
+	task* tp;
+	int pre_ang[3];
+	unsigned int ChaoFlag;
+	unsigned __int16 ColliFormat;
+	float CurrZone;
+	MOTION_CTRL MotionCtrl;
+	MOTION_CTRL MiniMotionCtrl;
+	MOTION_TABLE MiniMotionTable[4];
+	AL_BEHAVIOR Behavior;
+	AL_SHAPE Shape;
+	AL_FACE_CTRL Face;
+	AL_ICON Icon;
+	AL_ZONE Zone;
+	AL_PERCEPTION Perception;
+	void* pWork;
+};
+
+// Chao (SA1 related)
+
+struct ADV1_AL_IMPLESSION
+{
+	char like;
+	unsigned __int8 meet;
+};
+
+struct ADV1_AL_IMPLESSION2
+{
+	unsigned int id;
+	unsigned __int8 like;
+	unsigned __int8 meet;
+};
+
+struct ADV1_AL_MEMORY
+{
+	ADV1_AL_IMPLESSION player[6];
+	ADV1_AL_IMPLESSION2 chao[32];
+};
+
+struct al_status
+{
+	unsigned __int8 type;
+	unsigned __int8 garden_num;
+	char like;
+	unsigned __int8 key1;
+	unsigned __int8 name[8];
+	unsigned __int16 swim;
+	unsigned __int16 fly;
+	unsigned __int16 run;
+	unsigned __int16 power;
+	unsigned __int16 health;
+	unsigned __int16 health_max;
+	unsigned __int8 fruit_kind[8];
+	float h_pos;
+	float v_pos;
+	float growth;
+	unsigned __int16 intimate;
+	unsigned __int16 life;
+	unsigned __int16 old;
+	unsigned __int16 get_minimal;
+	unsigned __int8 win;
+	unsigned __int8 key2;
+	unsigned __int16 flag;
+	NJS_POINT3 pos;
+	unsigned int age;
+	unsigned int id;
+	char animal_part_num[7];
+	unsigned __int8 key3;
+	unsigned __int16 pt_swim;
+	unsigned __int16 pt_fly;
+	unsigned __int16 pt_run;
+	unsigned __int16 pt_power;
+	char kindness;
+	char aggressive;
+	char curiosity;
+	unsigned __int8 charm;
+	unsigned __int8 breed;
+	unsigned __int8 sleep;
+	unsigned __int8 hunger;
+	unsigned __int8 tedious;
+	unsigned __int8 tire;
+	unsigned __int8 stress;
+	unsigned __int8 narrow;
+	unsigned __int8 pleasure;
+	unsigned __int8 anger;
+	unsigned __int8 sorrow;
+	unsigned __int8 fear;
+	unsigned __int8 lonely;
+	ADV1_AL_MEMORY memory;
+	unsigned __int8 nbSucceed;
+	unsigned __int8 lane;
+	unsigned __int8 IsCPU;
+	char key4;
+	char exist;
+	unsigned __int16 mayu_timer;
+	unsigned __int8 race_time[20];
+	unsigned __int8 extra_num;
+};
+
+struct ADV1_AL_TMP_STATUS
+{
+	float aim_h_pos;
+	float aim_v_pos;
+	float aim_grouth;
+	NJS_ARGB aim_argb;
+};
+
+struct al_action_ctrl
+{
+	unsigned __int16 old_mode;
+	unsigned __int16 curr_mode;
+	unsigned __int16 req_mode;
+	unsigned __int16 flag;
+	unsigned __int16 timer;
+};
+
+struct al_motion_table
+{
+	NJS_MOTION* motion;
+	__int16 mode;
+	__int16 next;
+	float start_frame;
+	float end_frame;
+	float frame_spd;
+	float link_spd;
+};
+
+struct ADV1_AL_MOTION_CTRL
+{
+	unsigned __int16 mode;
+	unsigned __int16 flag;
+	unsigned __int16 timer;
+	__int16 curr_num;
+	__int16 link_num;
+	__int16 req_num;
+	float nframe;
+	float pframe;
+	float lframe;
+	float link_ratio;
+	float multi_spd;
+	al_motion_table* motion_table;
+};
+
+struct ADV1_AL_PERCEPTION
+{
+	unsigned int flag;
+};
+
+union alifewk_work
+{
+	char b[4];
+	__int16 w[2];
+	int l;
+	float f;
+	void* ptr;
+};
+
+struct ADV1_AL_SHADOW
+{
+	unsigned __int16 flag;
+	NJS_POINT3 colli_center;
+	float colli_top;
+	float colli_radius;
+	float colli_bottom;
+	float cliff_height;
+	float bound_side;
+	float bound_floor;
+	float bound_friction;
+	float bound_ceiling;
+	int bound_add_angle;
+	float shadow_scl;
+	float shadow_scl_ratio;
+	float water_pos;
+	xyyzzxsdwstr si;
+};
+
+struct ADV1_AL_BODY
+{
+	obj* object;
+	obj* my_parts[50];
+	obj* zero[50];
+	obj* standard[50];
+	obj* fly[50];
+	obj* run[50];
+	obj* power[50];
+	obj* swim[50];
+	NJS_TEXLIST* tex;
+};
+
+struct ADV1_AL_FACE
+{
+	unsigned __int16 timer1;
+	unsigned __int16 timer2;
+	unsigned __int16 timer3;
+	int eye_keep_timer;
+	int mouse_keep_timer;
+	int eyelid_keep_timer;
+	unsigned int flag;
+	int eyelid_brink_ang;
+	int eyelid_close_ang;
+	int eyelid_curr_close_ang;
+	int eyelid_request_close_ang;
+	int eyelid_default_close_ang;
+	int eyelid_express_ang;
+	int eyelid_curr_express_ang;
+	int eyelid_request_express_ang;
+	int eyelid_default_express_ang;
+	__int16 eye_default_num;
+	__int16 eye_request_num;
+	__int16 mouse1_default_num;
+	__int16 mouse2_default_num;
+	__int16 mouse1_request_num;
+	__int16 mouse2_request_num;
+};
+
+struct ADV1_AL_ICON
+{
+	unsigned __int16 flag;
+	unsigned __int16 mode;
+	unsigned __int16 timer;
+	unsigned __int16 next_mode;
+	unsigned __int16 next_timer;
+	NJS_POINT3 pos;
+	NJS_POINT3 velo;
+	NJS_POINT3 diff;
+	int phase;
+	unsigned __int16 timer_u;
+	unsigned __int16 icon_num_u;
+	unsigned __int16 smode_u;
+	float ang_u;
+	float ang_spd_u;
+	NJS_POINT3 pos_u;
+	NJS_POINT3 velo_u;
+	NJS_POINT3 scl_u;
+	NJS_POINT3 sclspd_u;
+	unsigned __int16 timer_d;
+	unsigned __int16 icon_num_d;
+	unsigned __int16 smode_d;
+	float ang_d;
+	float ang_spd_d;
+	NJS_POINT3 pos_d;
+	NJS_POINT3 velo_d;
+	NJS_POINT3 scl_d;
+	NJS_POINT3 sclspd_d;
+	NJS_COLOR col;
+};
+
+
+struct alifewk
+{
+	alifewk_work work;
+	NJS_POINT3 velo;
+	NJS_POINT3 acc;
+	Angle3 ang_aim;
+	Angle3 ang_spd;
+	float rad;
+	float height;
+	float weight;
+	task* lock_tp;
+	void(__cdecl* dest_org)(task*);
+	unsigned __int16 action_timer;
+	unsigned __int16 stimer;
+	unsigned __int16 voice_timer;
+	unsigned __int16 rhythm_timer;
+	__int16 old_mode;
+	__int16 old_smode;
+	__int16 curr_mode;
+	__int16 curr_smode;
+	__int16 req_mode;
+	__int16 req_smode;
+	__int16 hold_mode;
+	unsigned int flag;
+	unsigned __int16 action_mode;
+	NJS_BGRA mat_col;
+	float mayu_scl;
+	float mayu_alpha;
+	int name_alpha;
+	unsigned __int16 name_timer;
+	unsigned __int16 damage_timer;
+	int pitch;
+	int yaw;
+	int roll;
+	__int16 aim_num;
+	NJS_POINT3 home;
+	NJS_POINT3 aim;
+	NJS_POINT3 pre;
+	NJS_POINT3 offset;
+	Angle3 aim_ang;
+	int view_angle;
+	float view_range2;
+	float hear_range2;
+	float buyo_scale;
+	float chao_scl;
+	float aim_hpos;
+	float aim_vpos;
+	float aim_growth;
+	unsigned __int16 sekkachi_timer;
+	al_status* status;
+	ADV1_AL_TMP_STATUS tmp_status;
+	al_action_ctrl action_ctrl;
+	ADV1_AL_MOTION_CTRL motion_ctrl;
+	ADV1_AL_SHADOW shadow;
+	ADV1_AL_BODY body;
+	ADV1_AL_FACE face;
+	ADV1_AL_ICON icon;
+	ADV1_AL_PERCEPTION perception;
+	task* mytask;
+	task* pAdv2ChaoTask;
+};
+
+struct AlrEffUnit
+{
+	NJS_POINT3 trans;
+	NJS_POINT3 velocity;
+	unsigned __int8 frame;
+	char frame_inc_time;
+	unsigned __int8 mode;
+	unsigned __int8 flag;
+	unsigned __int16 timer;
+	unsigned __int16 tmp;
+};
+
+#pragma pack(push, 2)
+struct TaskCommunication
+{
+	task* obj_tp;
+	char obj_kind;
+	char command;
+	unsigned __int8 status;
+};
+#pragma pack(pop)
+
+struct AlrEff
+{
+	AlrEffUnit unit[5];
+	NJS_TEXLIST* texlist;
+	NJS_TEXANIM* anim;
+	float scale;
+	void(__cdecl* exec)(AlrEffUnit*, NJS_POINT3*, NJS_POINT3*);
+	unsigned __int16 frame_inc_time_max;
+	unsigned __int8 anim_num;
+	unsigned __int8 unit_num;
+};
+
+struct AlrEvent
+{
+	unsigned __int8 level;
+	unsigned __int8 cnt;
+	unsigned __int16 timer;
+	void(__cdecl* event)(void*);
+};
+
+struct Alr
+{
+	AlrEff eff;
+	AlrEvent event;
+	TaskCommunication communication;
+	unsigned __int8 id;
+	unsigned __int8 area;
+	unsigned __int16 flag;
+	unsigned __int8 rank;
+	unsigned __int8 mode;
+	unsigned __int8 command;
+	unsigned __int8 smode;
+	float sloop;
+	float pathpos;
+	unsigned __int8 use_path;
+	unsigned __int8 ex_mode;
+	unsigned __int16 ex_cnt;
+	int amplitude;
+	unsigned __int8 now;
+	unsigned __int8 motion;
+	unsigned __int8 chao_flag;
+	unsigned __int8 voice;
+	unsigned __int8 zone;
+	unsigned __int16 para_timer;
+	float monooto;
+	char sleep;
+	char tire;
+	char stress;
+	char tmp;
+	alifewk* awp;
+	taskwk* twp;
+};
+
+// Tutorials
+
+struct GH_PVR_TEX
+{
+	__int16 index;
+	__int16 x;
+	__int16 y;
+};
+
+struct TUTO_PAGE
+{
+	unsigned __int16 x;
+	unsigned __int16 y;
+	unsigned __int16 seqflag;
+	unsigned __int16 w;
+	unsigned __int16 h;
+	__int16* sprite[2];
+};
+
+struct TUTO_BOOK
+{
+	unsigned __int16 nbPage;
+	unsigned __int16 PurposePage;
+	TUTO_PAGE* page;
+	NJS_TEXLIST* texlist[2];
+	char* pvmname[2];
+};
+
+// Characters
+
+struct bbl_small_work
+{
+	NJS_POINT3 pos;
+	float radius;
+	float ceil;
+	int life;
+	float yuragi_x;
+	float yuragi_z;
+	float yuragi_r;
+	float y_spd;
+	int yuragi_ang;
+	bbl_small_work* prev;
+	bbl_small_work* next;
+};
+
+struct bbl_small_taskwk
+{
+	char free1;
+	char turn;
+	unsigned __int8 id;
+	unsigned __int8 free2;
+	__int16 flag;
+	__int16 bbls_count;
+	bbl_small_work* bbls_work_p;
+	bbl_small_work* free_list_p;
+	bbl_small_work* top_list_p;
+	Angle3 ang;
+	NJS_POINT3 pos;
+	float radius;
+	float freq;
+	float bbl_max;
+	colliwk* cwp;
+	eventwk* ewp;
+};
 #endif /* SADXMODLOADER_SADXSTRUCTSNEW_H */

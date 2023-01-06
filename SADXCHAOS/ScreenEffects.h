@@ -10,8 +10,8 @@ struct ScanLineWork
 	NJS_COLOR line_col;
 	int res;
 };
-void __cdecl deleteScanLine();
-void __cdecl createScanLine(unsigned __int8 a, unsigned __int8 r, unsigned __int8 g, unsigned __int8 b, int res);
+void __cdecl deleteScanLine1();
+void __cdecl createScanLine1(unsigned __int8 a, unsigned __int8 r, unsigned __int8 g, unsigned __int8 b, int res);
 //BootEffect
 struct BootWork
 {
@@ -23,8 +23,8 @@ struct BootWork
 	unsigned int adjust_frame;
 	unsigned int noise_frame;
 };
-void __cdecl deleteBoot();
-void __cdecl createBoot(int wait_frame, int sstorm_frame, int poweron_frame, int adjust_frame);
+void __cdecl deleteBoot1();
+void __cdecl createBoot1(int wait_frame, int sstorm_frame, int poweron_frame, int adjust_frame);
 void RandomScanLine();
 void RandomBoot();
 void HAHA69();

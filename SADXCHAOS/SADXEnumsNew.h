@@ -8,11 +8,20 @@
 
 #include <stdint.h>
 
-// SADX Enums
+ // SADX Enums
 
 #define makemask(enumname,membername) enumname##_##membername = (1 << enumname##Bits_##membername)
 #define makemasks(enumname,membername) enumname##s_##membername = (1 << enumname##Bits_##membername)
 #define levelact(level, act) (((level) << 8) | (act))
+
+enum LANGUAGE : __int32 // Different from X360
+{
+	JAPANESE = 0x0,
+	ENGLISH = 0x1,
+	FRENCH = 0x2,
+	SPANISH = 0x3,
+	GERMAN = 0x4
+};
 
 enum TEX_EFF
 {
@@ -356,6 +365,56 @@ enum AdvaModeEnum
 	ADVA_MODE_END = 0x19,
 	ADVA_MODE_END2 = 0x1A,
 	ADVA_MODE_MAX = 0x1B,
+};
+
+enum FileSbMdEnum : __int32
+{
+	FILESEL_SMD_STAY = 0x0,
+	FILESEL_SMD_STAY2 = 0x1,
+	FILESEL_SMD_DECIDE = 0x2,
+	FILESEL_SMD_DELETE = 0x3,
+	FILESEL_SMD_DELETE2 = 0x4,
+	FILESEL_SMD_DELETEMISS = 0x5,
+	FILESEL_SMD_PRE_SAVE_INET_SC = 0x6,
+	FILESEL_SMD_SAVE_INET_SC = 0x7,
+	FILESEL_SMD_AFTER_SAVE_INET_SC = 0x8,
+	FILESEL_SMD_BACK = 0x9,
+	FILESEL_SMD_NWAIT = 0xA,
+	FILESEL_SMD_CRC_ERR = 0xB,
+	FILESEL_SMD_FIRST_SAVE = 0xC,
+	FILESEL_SMD_FIRST_SAVE2 = 0xD,
+	FILESEL_SMD_FILE_MAX = 0xE,
+	FILESEL_SMD_FILE_MAX2 = 0xF,
+	FILESEL_SMD_BROKEN = 0x10,
+	FILESEL_SMD_MEMOCA = 0x11,
+	FILESEL_SMD_MAX = 0x12,
+};
+
+enum ERR_TYPE : __int32
+{
+	GC_ERR_NONE = 0x0,
+	GC_ERR_PROBE = 0x1,
+	GC_ERR_MOUNT = 0x2,
+	GC_ERR_ENCODE = 0x3,
+	GC_ERR_BROKEN = 0x4,
+	GC_ERR_CHECK = 0x5,
+	GC_ERR_CRC = 0x6,
+	GC_ERR_SIZE = 0x7,
+	GC_ERR_CHAO = 0x8,
+	GC_ERR_CHAO2 = 0x9,
+	GC_ERR_NO_USE = 0xA,
+	GC_FORMAT_FINISH = 0xB,
+	GC_FORMAT_FALSE = 0xC,
+	GC_ERR_DIFFER = 0xD,
+	GC_ERR_DEATH = 0xE,
+	GC_ERR_SERIAL = 0xF,
+	GC_ERR_CHAOONLY = 0x10,
+	GC_ERR_CHAOSAVE = 0x11,
+	GC_ERR_IPL = 0x12,
+	GC_ERR_SPACE = 0x13,
+	GC_ERR_SECTOR = 0x14,
+	GC_ERR_FATAL = 0x15,
+	GC_ERR_ETC = 0x16,
 };
 
 enum SHAPE
@@ -3969,6 +4028,119 @@ enum PAUSE_TEXTURE_ID : __int32
 	PAUSE_TEX_MAP_E = 0x3C,
 	PAUSE_TEX_MISSION_E = 0x3D,
 	PAUSE_TEX_NUM = 0x3E,
+};
+
+// Chao
+
+enum eLayerNum : __int32
+{
+	ENT_MENU_LAYER_RACE_SELECT = 0x0,
+	ENT_MENU_LAYER_CHAO_SELECT = 0x1,
+	ENT_MENU_LAYER_COURSE_SELECT = 0x2,
+	NB_ENT_MENU_STAGE = 0x3,
+};
+
+enum eGardenNum : __int32
+{
+	ENT_MENU_GARDEN_MEMORY = 0x0,
+	ENT_MENU_GARDEN_SS = 0x1,
+	ENT_MENU_GARDEN_EC = 0x2,
+	ENT_MENU_GARDEN_MR = 0x3,
+	NB_ENT_MENU_GARDEN = 0x4,
+};
+
+enum EggColor : __int32
+{
+	EggColor_Normal = 0x0,
+	EggColor_Yellow = 0x1,
+	EggColor_White = 0x2,
+	EggColor_Brown = 0x3,
+	EggColor_SkyBlue = 0x4,
+	EggColor_Pink = 0x5,
+	EggColor_Blue = 0x6,
+	EggColor_Gray = 0x7,
+	EggColor_Green = 0x8,
+	EggColor_Red = 0x9,
+	EggColor_AppleGreen = 0xA,
+	EggColor_Purple = 0xB,
+	EggColor_Orange = 0xC,
+	EggColor_Black = 0xD,
+	EggColor_BlendYellow = 0xE,
+	EggColor_BlendWhite = 0xF,
+	EggColor_BlendBrown = 0x10,
+	EggColor_BlendSkyBlue = 0x11,
+	EggColor_BlendPink = 0x12,
+	EggColor_BlendBlue = 0x13,
+	EggColor_BlendGray = 0x14,
+	EggColor_BlendGreen = 0x15,
+	EggColor_BlendRed = 0x16,
+	EggColor_BlendAppleGreen = 0x17,
+	EggColor_BlendPurple = 0x18,
+	EggColor_BlendOrange = 0x19,
+	EggColor_BlendBlack = 0x1A,
+	EggColor_ShinyNormal = 0x1B,
+	EggColor_ShinyYellow = 0x1C,
+	EggColor_ShinyWhite = 0x1D,
+	EggColor_ShinyBrown = 0x1E,
+	EggColor_ShinySkyBlue = 0x1F,
+	EggColor_ShinyPink = 0x20,
+	EggColor_ShinyBlue = 0x21,
+	EggColor_ShinyGray = 0x22,
+	EggColor_ShinyGreen = 0x23,
+	EggColor_ShinyRed = 0x24,
+	EggColor_ShinyAppleGreen = 0x25,
+	EggColor_ShinyPurple = 0x26,
+	EggColor_ShinyOrange = 0x27,
+	EggColor_ShinyBlack = 0x28,
+	EggColor_ShinyBlendYellow = 0x29,
+	EggColor_ShinyBlendWhite = 0x2A,
+	EggColor_ShinyBlendBrown = 0x2B,
+	EggColor_ShinyBlendSkyBlue = 0x2C,
+	EggColor_ShinyBlendPink = 0x2D,
+	EggColor_ShinyBlendBlue = 0x2E,
+	EggColor_ShinyBlendGray = 0x2F,
+	EggColor_ShinyBlendGreen = 0x30,
+	EggColor_ShinyBlendRed = 0x31,
+	EggColor_ShinyBlendAppleGreen = 0x32,
+	EggColor_ShinyBlendPurple = 0x33,
+	EggColor_ShinyBlendOrange = 0x34,
+	EggColor_ShinyBlendBlack = 0x35,
+	EggColor_Gold = 0x36,
+	EggColor_Silver = 0x37,
+	EggColor_Ruby = 0x38,
+	EggColor_Sapphire = 0x39,
+	EggColor_Emerald = 0x3A,
+	EggColor_Amethyst = 0x3B,
+	EggColor_Aquamarine = 0x3C,
+	EggColor_Garnet = 0x3D,
+	EggColor_Onyx = 0x3E,
+	EggColor_Peridot = 0x3F,
+	EggColor_Topaz = 0x40,
+	EggColor_Pearl = 0x41,
+	EggColor_Env0 = 0x42,
+	EggColor_Env1 = 0x43,
+	EggColor_Env2 = 0x44,
+	EggColor_Env3 = 0x45,
+	EggColor_Env4 = 0x46,
+	nbEggColor = 0x47,
+};
+
+enum SkinColor : __int32
+{
+	SkinColor_Normal = 0x0,
+	SkinColor_Yellow = 0x1,
+	SkinColor_White = 0x2,
+	SkinColor_Brown = 0x3,
+	SkinColor_SkyBlue = 0x4,
+	SkinColor_Pink = 0x5,
+	SkinColor_Blue = 0x6,
+	SkinColor_Gray = 0x7,
+	SkinColor_Green = 0x8,
+	SkinColor_Red = 0x9,
+	SkinColor_AppleGreen = 0xA,
+	SkinColor_Purple = 0xB,
+	SkinColor_Orange = 0xC,
+	SkinColor_Black = 0xD,
 };
 
 #endif /* SADXMODLOADER_SADXENUMSNEW_H */

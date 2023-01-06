@@ -878,7 +878,7 @@ void Set_Sonic_Ice()
 void EmeraldShardMa()
 {
 	LoadPVM("Obj_ruin", &OBJ_RUIN_TEXLIST); //test for shard texture loading or not
-	EmeraldShard_Create(20);
+	//EmeraldShard_Create(20);
 	WriteData<4>((int*)0x3C851D0, 0x00); //3C851D0 needs to be 0 to spawn more
 }
 void RandomKnuxRingSpring(taskwk* p1)
@@ -917,7 +917,7 @@ void RandomWaterPiller(taskwk* p1)
 	if (!p_WaterPillarTask)
 	{
 		strcpy_s(LastEffect, 128, "Random Water Piller");
-		WaterPillarOn(playertwp[0]->pos.x, playertwp[0]->pos.y, playertwp[0]->pos.z, 1, Randomscale);
+		WaterPillarOn1(playertwp[0]->pos.x, playertwp[0]->pos.y, playertwp[0]->pos.z, 1, Randomscale);
 		EnemyBounceThing(0, rand() % 5 + (1), rand() % 5 + (1), rand() % 5 + (1));
 		WaterPiller_Timer = 420;
 	}

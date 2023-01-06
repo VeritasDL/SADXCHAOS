@@ -18,7 +18,7 @@ struct __declspec(align(4)) PillarWork
 	NJS_ARGB dcol;
 	__int16 uvscr_spd;
 };
-void __cdecl WaterPillarOn(float pos_x, float pos_y, float pos_z, float play_spd, float scale);
-void __cdecl WaterPillarOff();
-void __cdecl createPillar(float pos_x, float pos_y, float pos_z, float play_spd, float scale);
+void __cdecl WaterPillarOn1(float pos_x, float pos_y, float pos_z, float play_spd, float scale);
+void __cdecl WaterPillarOff1();
+void __cdecl createPillar1(float pos_x, float pos_y, float pos_z, float play_spd, float scale);
 
