@@ -49,6 +49,8 @@ extern bool GravityTextLoader;
 extern bool Bumper1TextLoader;
 extern bool FlipperTextLoader;
 extern bool SlingTextLoader;
+extern bool CardTextLoader;
+extern bool DtargetTextLoader;
 extern int FruitNumb;
 extern int HatNumb;
 void ResetTextureBools();

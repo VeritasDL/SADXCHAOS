@@ -37,6 +37,7 @@ int ColorsRandChance = 0;
 int SpinMa_Timer = 0;
 int SpinMaRestore_Timer = 0;
 int Tornado_Timer = 0;
+int taskmatimer = 0;
 unsigned int Colors69[] =
 {
 0xFFbcdcb3,
@@ -472,7 +473,7 @@ void CartTimerCheck()
 	{
 		DeleteCartAndExitPlayer();
 		WriteData<1>((void*)0x798306, 0x85); //Jump auto in the cart
-		WriteData<1>((void*)0x7983c4, 0x7C); //Jump auto in the cart
+		WriteData<1>((void*)0x7983c4, 0x7C); //Jump auto in the cart //2023 NEED TO RESTORE THIS TOO LOL HOW DO FORGOR
 		Cart_Timer = 0;
 	}
 }
@@ -593,6 +594,20 @@ void TorandoTimerChecker()
 		Tornado_Timer = 0;
 	}
 }
+void TaskMaTimerChecker()
+{
+	if (taskmatimer != 0)
+	{
+		DisplayDebugStringFormatted(NJM_LOCATION(0, 9), " %d", CurrentTaskArraySize);
+		taskmatimer--;
+	}
+	if (taskmatimer == 1)
+	{
+		DisplayDebugStringFormatted(NJM_LOCATION(0, 9), " %d", CurrentTaskArraySize);
+		taskmatimer = 0;
+		CurrentTaskArraySize = 0;
+	}
+}
 void CheckAllEffectsTimer()
 {
 	NoClipTimerCheck();
@@ -620,4 +635,5 @@ void CheckAllEffectsTimer()
 	SpinMaTimerCheck();
 	SpinMaRestoreTimerChecker();
 	TorandoTimerChecker();
+	TaskMaTimerChecker();
 }

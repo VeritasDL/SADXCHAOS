@@ -27,3 +27,5 @@ void PanelRestore();
 void RandomBumper1(taskwk* p1);
 void RandomFlipper(taskwk* p1);
 void RandomSling(taskwk* p1);
+void RandomCard(taskwk* p1);
+void RandomDtarget(taskwk* p1);

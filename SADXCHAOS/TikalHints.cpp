@@ -35,8 +35,7 @@ const HintText_Text const Hints[68][3] = {
 { "Insert the plug in the\nopening next to the door.", 130 }, // text, time
 { "You need to grab hold of\nthe end of the plug.", 140 }, //Second page
 { 0 } //idk 3rd page or always null?
-},//if you read this
-  //you mom gay
+},
 {
 { "If you're hanging from a cord,\nuse the directional pad to sway.", 180 }, // text, time
 { "By touching the cord next to you,\nyou will be able to switch cords.", 180 }, //Second page

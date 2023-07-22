@@ -93,6 +93,8 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4267;4244;26812;4305;4309;4114%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(SolutionDir)mod-loader-common/ModLoaderCommon</AdditionalIncludeDirectories>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -180,6 +182,7 @@ copy "C:\Users\Veritas\Documents\Visual Studio 2022\Projects\SADXCHAOS\Release\S
     <ClInclude Include="Objects.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PowerUPS.h" />
+    <ClInclude Include="RestoreCode.h" />
     <ClInclude Include="RotateMa.h" />
     <ClInclude Include="ScreenEffects.h" />
     <ClInclude Include="Teleport.h" />
@@ -208,6 +211,7 @@ copy "C:\Users\Veritas\Documents\Visual Studio 2022\Projects\SADXCHAOS\Release\S
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="PowerUPS.cpp" />
+    <ClCompile Include="RestoreCode.cpp" />
     <ClCompile Include="RotateMa.cpp" />
     <ClCompile Include="ScreenEffects.cpp" />
     <ClCompile Include="Teleport.cpp" />

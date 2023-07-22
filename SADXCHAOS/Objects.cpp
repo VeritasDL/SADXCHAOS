@@ -505,6 +505,11 @@ void RandomFountain(taskwk* p1)
 }
 void RandomTarget(taskwk* p1)
 {
+	if (CurrentCharacter == Characters_Gamma && CurrentLevel == LevelIDs_FinalEgg)
+	{
+		NewEffect();
+		return;
+	}
 	if (!TargetTextLoader)
 	{
 		LoadPVM("Obj_finalegg", &OBJ_FINALEGG_TEXLIST);
@@ -529,10 +534,7 @@ void RandomTarget(taskwk* p1)
 	FacePlayer();
 	Target->twp->ang.y = FaceAng;
 	Target->twp->scl.x = rand() % 200; //Distance Target Moves Back and Forth
-	if (CurrentCharacter != Characters_Gamma && CurrentLevel != LevelIDs_FinalEgg)
-	{
-		WriteData<5>((int*)0x5B56D2, 0x90);//target_man_exec_nop LoadLevelResults NOP
-	}
+	WriteData<5>((int*)0x5B56D2, 0x90);//target_man_exec_nop LoadLevelResults NOP
 	return;
 }
 void RandomPopUpTarget(taskwk* p1)
@@ -699,5 +701,67 @@ void RandomSling(taskwk* p1)
 	FaceZ = Sling->twp->pos.z - playertwp[0]->pos.z;
 	FacePlayer();
 	Sling->twp->ang.y = FaceAng;
+	return;
+}
+void RandomCard(taskwk* p1)
+{
+	if (!CardTextLoader)
+	{
+		LoadPVM("OBJ_CASINO_E", &OBJ_CASINO_TEXLIST);
+		CardTextLoader = true;
+		TextLoaded = true;
+	}
+	strcpy_s(LastEffect, 128, "Random Card");
+	task* RCard;
+	RCard = (task*)LoadObject((LoadObj)2, 3, Card);
+	OBJ_CONDITION* objCondition = new OBJ_CONDITION();
+	RCard->ocp = objCondition;
+	RCard->twp->pos = playertwp[0]->pos;
+	PlaceX = RCard->twp->pos.x;
+	PlaceZ = RCard->twp->pos.z;
+	PosOffset = 80;
+	PlaceInFront();
+	RCard->twp->pos.x = PlaceX;
+	RCard->twp->pos.z = PlaceZ;
+	RCard->twp->pos.y = RCard->twp->pos.y + 20;
+	FaceX = RCard->twp->pos.x - playertwp[0]->pos.x;
+	FaceZ = RCard->twp->pos.z - playertwp[0]->pos.z;
+	FacePlayer();
+	RCard->twp->ang.y = FaceAng;
+	return;
+}
+void RandomDtarget(taskwk* p1)
+{
+	if (!DtargetTextLoader)
+	{
+		LoadPVM("OBJ_CASINO_E", &OBJ_CASINO_TEXLIST);
+		DtargetTextLoader = true;
+		TextLoaded = true;
+	}
+	strcpy_s(LastEffect, 128, "Random Targets");
+	task* RDtarget;
+	int Dtargettype = rand() % 2;
+	if (Dtargettype == 0)
+	{
+		RDtarget = (task*)LoadObject((LoadObj)6, 3, Dtarget);
+	}
+	else
+	{
+		RDtarget = (task*)LoadObject((LoadObj)6, 3, Dtarget2);
+	}
+	OBJ_CONDITION* objCondition = new OBJ_CONDITION();
+	RDtarget->ocp = objCondition;
+	RDtarget->twp->pos = playertwp[0]->pos;
+	PlaceX = RDtarget->twp->pos.x;
+	PlaceZ = RDtarget->twp->pos.z;
+	PosOffset = 80;
+	PlaceInFront();
+	RDtarget->twp->pos.x = PlaceX;
+	RDtarget->twp->pos.z = PlaceZ;
+	//RCarduv->twp->pos.y = RCarduv->twp->pos.y + 20;
+	FaceX = RDtarget->twp->pos.x - playertwp[0]->pos.x;
+	FaceZ = RDtarget->twp->pos.z - playertwp[0]->pos.z;
+	FacePlayer();
+	RDtarget->twp->ang.y = FaceAng;
 	return;
 }

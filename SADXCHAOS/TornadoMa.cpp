@@ -29,6 +29,7 @@ TaskFuncPtr BlackListNearbyPTaskMainPrtList[] = {
 	(TaskFuncPtr)0x545670, //OCScenechg
 	(TaskFuncPtr)0x7B0C80, //CScenechanger
 	(TaskFuncPtr)0x539220, //ChangeSceneMR
+	(TaskFuncPtr)0x4B4940, //Emblem_Main
 	(TaskFuncPtr)0x6406C0 //Apart of SceneChange_Main seems to be used as the Main Exec for the SS Transitions? (maybe more? idk yet)
 };
 size_t BlackListNearbyPTaskMainPrtListSize = LengthOfArray(BlackListNearbyPTaskMainPrtList);
@@ -139,7 +140,25 @@ void TornadoMa()
 			multVec(&moveVector, rotateSpeed(distance));
 			njAddVector(&moveVector, &distanceVector);
 			njAddVector(&task->pos, &moveVector);
+			//DisplayDebugStringFormatted(NJM_LOCATION(0, 9), " %d", TaskArraySize);
 			PrintDebug("last edited task: %X \n", (int)NearbyPTaskPtrList[i]); //switched from NearbyPTaskPtrList to nearbyAllowedPTaskList temp.walker need to disable before release
 		}
+	}
+}
+task* CurrentpTaskPtrList[1024] = { 0 };
+int CurrentTaskArraySize = 0;
+void TaskMa()
+{
+	//count all tasks' with valid twp
+	for (int j = 0; j < 1024; ++j) {
+		if (!objStatusEntry[j].pTask) {
+			continue;
+		}
+		if (!objStatusEntry[j].pTask->twp) {
+			continue;
+		}
+		CurrentpTaskPtrList[CurrentTaskArraySize] = objStatusEntry[j].pTask;
+		CurrentTaskArraySize++;
+		taskmatimer = 41;
 	}
 }

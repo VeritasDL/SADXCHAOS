@@ -39,6 +39,7 @@ extern int Tornado_Timer;
 extern int numAllowedTasks;
 extern int numNearbyTasks;
 extern int TaskArraySize;
+extern int taskmatimer;
 void NoClipTimerCheck();
 void InputInvertTimerCheck();
 void CameraDeattchTimerCheck();

@@ -1157,6 +1157,7 @@ DataPointer(LandTable, Geo_Casinopolis3, 0x1D86A1C);
 DataPointer(LandTable, Geo_Casinopolis2, 0x1D887EC);
 DataPointer(LandTable, Geo_Casinopolis1, 0x1D8A9D0);
 DataPointer(NJS_TEXLIST, OBJ_CASINO_TEXLIST, 0x1D8B0AC);
+DataPointer(NJS_TEXLIST, BigStar_TEXLIST, 0x1D8B384);
 DataPointer(NJS_TEXLIST, Loop_TEXLIST, 0x1D8B38C);
 DataPointer(NJS_TEXLIST, OBJ_CASINO2_TEXLIST, 0x1D8B3AC);
 DataPointer(NJS_TEXLIST, OBJ_CASINO9_TEXLIST, 0x1DF0920);

@@ -30,4 +30,5 @@
 #include "CustomChaosSADXFunctions.h"
 #include "MemAccess.h"
 #include "TornadoMa.h"
+#include "RestoreCode.h"
 #endif //PCH_H

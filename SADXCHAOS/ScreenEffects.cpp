@@ -10,7 +10,6 @@ std::string Ligmas[] =
 {
     "Ligma Balls",
 	"Bofa Deez",
-	"Dragondese Deez",
     "Candice",
 	"Maween",
     "SimpleFlips",
@@ -21,7 +20,7 @@ std::string Ligmas[] =
 	"Saw Con",
 	"Temp.Walker",
 	"Toad Arc",
-	"SUPER FUCKING MARIO",
+	"SUPER MARIO",
 	"Society",
 };
 enum MODE

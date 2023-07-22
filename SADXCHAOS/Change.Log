@@ -317,6 +317,14 @@ Added SplashMa (spawns in the water splash effect but does nothing else(for now?
 Added SpinMa (need to fix, need to write what it does)
 Added Tornado (Need to Test more, need to write down effect more) - big thanks to Skoob for spoonfeeding me the crazy af math
 Updated Programming files (1/5/2023)
+Added Tornado To Chaos Array (7/21/2023)
+Fixed RandomTarget finishing a level when defeated (7/21/2023)
+Fixed Cart Jumpout ASM edit not being reset sometimes (7/21/2023)
+Removed a few of the random Boss Text names in hopes it fix's the random bug it has (7/21/2023)
+Fixed a bug inside of the TikalHints.cpp file which caused some rather abnormal effect when used, Im not even sure how it compiled (7/21/2023)
+Added Debug Effect That shortly displays the number of valid Tasks loaded (7/21/2023) (mostly added as debugging for the Tornado Effect and for SRM testing)
+Added RandomCard and RandomTargets and added them to Chaos Array (7/21/2023)
+Shuffled Chaos Array Again (7/21/2023)
 ---------TO-DO---------
 10/11/2022 
 Need to fix sonic target when in Final Egg as amy/sonic (killing the target will finish the level like if playing as gamma)
@@ -324,6 +332,11 @@ Need to fix Random Boss Text (It crashed once, and displayed "DragonDeez XXXX" f
 Need a way to make Casino with Sonic beat-able with-out doing the speedrun skip (maybe give player a lot of rings randomly? idk yet)
 WaterFountain has some funny flashing texture for some reason idk never happend to me (yet)
 fix spinma
+
+crash with tornado and emblem? could be due to test spawn? idk 
+0x0044E516 
+
+
 
 
 
@@ -341,3 +354,4 @@ fix spinma
  Todo
  Beat has bad texture
  Random Info Storage
+ FOV effect lol

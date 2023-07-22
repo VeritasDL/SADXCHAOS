@@ -41,6 +41,8 @@ bool GravityTextLoader = false;
 bool Bumper1TextLoader = false;
 bool FlipperTextLoader = false;
 bool SlingTextLoader = false;
+bool CardTextLoader = false;
+bool DtargetTextLoader = false;
 bool TextLoaded = false;
 bool WriteOnce = false;
 int FruitNumb = 0;
@@ -91,6 +93,8 @@ void ResetTextureBools()
 	Bumper1TextLoader = false;
 	FlipperTextLoader = false;
 	SlingTextLoader = false;
+	CardTextLoader = false;
+	DtargetTextLoader = false;
 	WriteOnce = false;
 	HatNumb = 0;
 	FruitNumb = 0;
@@ -116,6 +120,6 @@ void ResetTextureBools()
 	{
 		PanelRestore();
 	}
-	WriteData((int*)0x5B56D2, (int)0xE5FE69E8); //target_man_exec_nop LoadLevelResults Reset Nopped ASM 
-	WriteData((int*)0x5B56D6, (int)0x43E857FF); //target_man_exec_nop LoadLevelResults Reset Nopped ASM 
+	//WriteData((int*)0x5B56D2, (int)0xE5FE69E8); //target_man_exec_nop LoadLevelResults Reset Nopped ASM 
+	//WriteData((int*)0x5B56D6, (int)0x43E857FF); //target_man_exec_nop LoadLevelResults Reset Nopped ASM 
 }
